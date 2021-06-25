@@ -1,4 +1,3 @@
-import './App.css';
 import Table from "./components/Table";
 
 
@@ -8,15 +7,11 @@ Array.prototype.getRandom = function () {
     this.splice(idx,1)
     return elem
 }
-const SIZE = 5
-const arrValues = Array(SIZE*SIZE).fill('').map((v, i) => i + 1)
-
-const arr = Array(SIZE).fill('').map(v => Array(SIZE).fill('').map((v, i) => arrValues.getRandom()))
 
 function App() {
     return (
-        <div className="App">
-            <Table arr={arr}/>
+        <div className="">
+            <Table/>
         </div>
     );
 }

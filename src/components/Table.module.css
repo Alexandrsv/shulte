@@ -1,0 +1,37 @@
+.Table {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.Row {
+    display: flex;
+    flex-direction: row;
+}
+
+.Cell {
+    overflow: hidden;
+    height: 50px;
+    width: 50px;
+    /*border: 1px solid;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    box-shadow: 0 0 1px rgba(0,0,0,0.5);
+}
+.Cell:hover {
+    box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+
+.Btn{
+    margin-top: 20px;
+}
