@@ -10,7 +10,7 @@ Array.prototype.getRandom = function () {
 
 function App() {
     return (
-        <div className="">
+        <div style={{background:'#FFFFFF'}}>
             <Table/>
         </div>
     );
