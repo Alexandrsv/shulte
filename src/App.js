@@ -22,6 +22,7 @@ import {Icon16GridOfFour, Icon28GearCircleFillGray, Icon28GraphOutline} from "@v
 import Statistics from "./components/statistics/Statistics";
 import {useSelector} from "react-redux";
 
+// eslint-disable-next-line no-extend-native
 Array.prototype.getRandom = function () {
     const idx = Math.floor((Math.random() * this.length))
     const elem = this[idx]
