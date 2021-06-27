@@ -27,6 +27,20 @@
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
     box-shadow: 0 0 1px rgba(0,0,0,0.5);
+    color: var(--text_primary)
+}
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 .Cell:hover {
     box-shadow: 0 0 3px rgba(0,0,0,0.5);

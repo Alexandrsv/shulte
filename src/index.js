@@ -5,25 +5,31 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import bridge from '@vkontakte/vk-bridge';
 import {AdaptivityProvider, AppRoot, ConfigProvider} from "@vkontakte/vkui";
+import {Provider} from "react-redux";
+import store from "./redux/store";
+
 export const UserContext = createContext();
 
 bridge.send("VKWebAppInit", {});
+
 
 const renderDefault = () => {
     bridge.send('VKWebAppInit').then(_ => {
         bridge.send('VKWebAppGetUserInfo').then(r => {
             ReactDOM.render(
                 <React.StrictMode>
-                    <ConfigProvider webviewType='internal'>
-                        <AdaptivityProvider>
-                            <AppRoot>
-                                <UserContext.Provider value={r}>
-                                    <App/>
-                                    {/*<Example/>*/}
-                                </UserContext.Provider>
-                            </AppRoot>
-                        </AdaptivityProvider>
-                    </ConfigProvider>
+                    <Provider store={store}>
+                        <ConfigProvider webviewType='internal'>
+                            <AdaptivityProvider>
+                                <AppRoot>
+                                    <UserContext.Provider value={r}>
+                                        <App/>
+                                        {/*<Example/>*/}
+                                    </UserContext.Provider>
+                                </AppRoot>
+                            </AdaptivityProvider>
+                        </ConfigProvider>
+                    </Provider>
                 </React.StrictMode>,
                 document.getElementById('root')
             )
@@ -31,6 +37,8 @@ const renderDefault = () => {
         })
     })
 }
+
+
 
 renderDefault()
 // If you want to start measuring performance in your app, pass a function

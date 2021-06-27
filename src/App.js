@@ -20,6 +20,7 @@ import {
 import "@vkontakte/vkui/dist/vkui.css";
 import {Icon16GridOfFour, Icon28GearCircleFillGray, Icon28GraphOutline} from "@vkontakte/icons";
 import Statistics from "./components/statistics/Statistics";
+import {useSelector} from "react-redux";
 
 Array.prototype.getRandom = function () {
     const idx = Math.floor((Math.random() * this.length))
@@ -34,6 +35,7 @@ const App = withAdaptivity(({viewWidth}) => {
     const onStoryChange = (e) => setActiveStory(e.currentTarget.dataset.story);
     const isDesktop = viewWidth >= ViewWidth.TABLET;
     const hasHeader = platform !== VKCOM;
+    const state = useSelector(s => s)
 
     return (
         <SplitLayout
@@ -66,6 +68,15 @@ const App = withAdaptivity(({viewWidth}) => {
                             data-story="settings"
                             label="2"
                             text="Настройки"
+                        ><Icon28GearCircleFillGray/></TabbarItem>
+                        <TabbarItem
+                            onClick={() => {
+                                console.log('State', state)
+                            }}
+                            selected={activeStory === 'settings'}
+                            data-story="settings"
+                            label="2"
+                            text="State"
                         ><Icon28GearCircleFillGray/></TabbarItem>
 
 

@@ -1,10 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 import s from './Table.module.css'
 import bridge from "@vkontakte/vk-bridge";
-import {Icon16ClockOurline} from "@vkontakte/icons";
+import {Icon16Add, Icon16ClockOurline, Icon16Minus} from "@vkontakte/icons";
 import {Button, Div} from "@vkontakte/vkui";
+import {useDispatch, useSelector} from "react-redux";
+import {settingsActions} from "../../redux/settings-reducer";
 
-const SIZE = 3
 
 const getNewTable = (SIZE) => {
     const arrValues = Array(SIZE * SIZE).fill('').map((v, i) => i + 1)
@@ -21,21 +22,25 @@ const Table = () => {
     const [time, setTime] = useState(0)
     const [table, setNewTable] = useState([[]])
     const [status, setStatus] = useState('waiting') //waiting|win|game
+    // const [tableSize, setStatus] = useState('waiting') //waiting|win|game
 
+    const dispatch = useDispatch()
+    const tableSize = useSelector(s => s.settingsReducer.size)
     const intervalRef = useRef()
 
     useEffect(() => { //Обработка победы, остановка таймера
-        if (itemForSearch > Math.pow(table.length, 2)) {
+        if (itemForSearch > Math.pow(tableSize, 2)) {
             setStatus('win')
             clearInterval(intervalRef.current);
             bridge.send("VKWebAppTapticNotificationOccurred", {"type": "success"});
         }
-    }, [itemForSearch, table.length])
+    }, [itemForSearch, tableSize])
 
 
     useEffect(() => { //Старт
-        setNewTable(getNewTable(SIZE))
-    }, [setNewTable])
+        setNewTable(getNewTable(tableSize))
+        setItemForSearch(1)
+    }, [setNewTable, tableSize])
 
 
     const onItemClick = (e) => {
@@ -47,9 +52,12 @@ const Table = () => {
         }
 
     }
+    const onChangeSize = (isIncrease) => {
+        dispatch(settingsActions.changeTableSize(isIncrease))
+    }
 
     const onRestartTable = () => {
-        setNewTable(getNewTable(SIZE))
+        setNewTable(getNewTable(tableSize))
         setItemForSearch(1)
         setStatus('game')
         clearInterval(intervalRef.current)
@@ -61,6 +69,19 @@ const Table = () => {
 
     return (
         <>
+
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between'
+            }}>
+                <span className={s.Cell} style={{margin: '10px'}} onClick={() => onChangeSize(true)}><Icon16Add
+                    width={48} height={48}/></span>
+                <span className={s.Cell} style={{margin: '10px'}} onClick={() => onChangeSize(false)}><Icon16Minus
+                    width={48} height={48}/></span>
+            </div>
+
+            {/*<button onClick={() => onChangeSize(true)}>+</button>*/}
+            {/*<button onClick={() => onChangeSize(false)}>-</button>*/}
             <div className={s.Table}>
                 {status !== 'waiting' && ''}
                 <span style={{padding: '10px', visibility: status !== 'waiting' ? 'visible' : 'hidden'}}>
@@ -90,7 +111,7 @@ const Table = () => {
                 {itemForSearch === Math.pow(table.length + 1, 2) && <h1>Победа</h1>}
                 <br/>
                 <Div>
-                    <Button stretched mode="secondary" onClick={onRestartTable}
+                    <Button stretched mode="primary" onClick={onRestartTable}
                             className={s.Btn}>{status === 'win'
                         ? 'Заново'
                         : status === 'game'
