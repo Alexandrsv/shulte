@@ -1,5 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import s from './Table.module.css'
+import bridge from "@vkontakte/vk-bridge";
+import {Icon16ClockOurline} from "@vkontakte/icons";
 
 const SIZE = 3
 
@@ -25,6 +27,7 @@ const Table = () => {
         if (itemForSearch > Math.pow(table.length, 2)) {
             setStatus('win')
             clearInterval(intervalRef.current);
+            bridge.send("VKWebAppTapticNotificationOccurred", {"type": "success"});
         }
     }, [itemForSearch, table.length])
 
@@ -38,6 +41,8 @@ const Table = () => {
         const item = e.target.childNodes[0].data
         if (itemForSearch === +item) {
             setItemForSearch(itemForSearch + 1)
+        } else {
+
         }
 
     }
@@ -56,9 +61,25 @@ const Table = () => {
     return (
         <>
             <div className={s.Table}>
-                <span style={{display: "inline"}}>Время:</span><span
-                style={{display: "inline", fontFamily: 'monospace'}}>{time}</span>
-                <h1>{status === 'win' ? 'Победа!' : 'Найди ' + itemForSearch}</h1>
+                {status !== 'waiting' && ''}
+                <span style={{padding: '10px', visibility: status !== 'waiting' ? 'visible' : 'hidden'}}>
+                        <Icon16ClockOurline/>
+                    </span>
+                <div style={{
+                    display: "inline",
+                    fontFamily: 'monospace',
+                    visibility: status !== 'waiting' ? 'visible' : 'hidden'
+                }}>
+                    {time + ' сек'}
+                </div>
+
+                <h1>{status === 'win'
+                    ? 'Победа!'
+                    : status === 'waiting'
+                        ? 'Нажмите пуск и найдите цифры, начиная с 1'
+                        : 'Найди ' + itemForSearch}
+                </h1>
+
                 {table.map((v, i) =>
                     <div key={i} className={s.Row}>
                         {
@@ -69,7 +90,9 @@ const Table = () => {
                 <button onClick={onRestartTable}
                         className={s.Btn}>{status === 'win'
                     ? 'Заново'
-                    : status === 'game' ? 'Рестарт' : 'Пуск'}
+                    : status === 'game'
+                        ? 'Рестарт'
+                        : 'Пуск'}
                 </button>
             </div>
         </>
