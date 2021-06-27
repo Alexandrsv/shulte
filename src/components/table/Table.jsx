@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import s from './Table.module.css'
 import bridge from "@vkontakte/vk-bridge";
 import {Icon16ClockOurline} from "@vkontakte/icons";
+import {Button, Div} from "@vkontakte/vkui";
 
 const SIZE = 3
 
@@ -87,13 +88,16 @@ const Table = () => {
                         }
                     </div>)}
                 {itemForSearch === Math.pow(table.length + 1, 2) && <h1>Победа</h1>}
-                <button onClick={onRestartTable}
-                        className={s.Btn}>{status === 'win'
-                    ? 'Заново'
-                    : status === 'game'
-                        ? 'Рестарт'
-                        : 'Пуск'}
-                </button>
+                <br/>
+                <Div>
+                    <Button stretched mode="secondary" onClick={onRestartTable}
+                            className={s.Btn}>{status === 'win'
+                        ? 'Заново'
+                        : status === 'game'
+                            ? 'Рестарт'
+                            : 'Пуск'}
+                    </Button>
+                </Div>
             </div>
         </>
     )
