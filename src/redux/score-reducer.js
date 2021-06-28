@@ -1,43 +1,54 @@
-import {getScore} from "../api/api";
+import {addScore, getScore} from "../api/api";
 
 const SET_SCORE = 'score/SET_SCORE'
+const SET_SCORE_FROM_SERVER = 'score/SET_SCORE_FROM_SERVER'
 
 
 let initialState = {
-    score: 3,
+    score: [[]],
 }
-
+// add: 17
+// size: 5
+// time: 250
+// utime: 1624883257
 
 const scoreReducer = (state = initialState, action) => {
     console.log('action', action)
     switch (action.type) {
         case SET_SCORE:
-
-            return {
-                ...state,
-            }
+            return {...state, score: [...state.score, [...action.payload]]}
+        case SET_SCORE_FROM_SERVER:
+            return {...state, score: action.payload.score}
         default:
             return state
     }
 }
 
-export const settingsActions = {
+export const scoreActions = {
 
-    changeTableSize: (isIncrease) => ({
+    addScore: (add, size, time, uTime) => ({
         type: SET_SCORE,
-        payload: {isIncrease}
+        payload: [add, size, time, uTime]
+    }),
+    setScoreFromServer: (score) => ({
+        type: SET_SCORE,
+        payload: score
     }),
 }
 
 
 export const getScoreTH = (userId) => async (dispatch) => {
-
     let response = await getScore(userId)
-    console.log('response',response)
+    if (!response) {
+        dispatch(scoreActions.setScoreFromServer(response.score))
+    }
+}
+
+export const addScoreTH = (size, time) => async (dispatch, getState) => {
+    const size = getState().settingsReducer.size
+    let response = await addScore(size, time)
     if (response) {
-        console.log('response2',response.say)
-        // let {id, login, email} = response.data
-        // dispatch(actions.setAuthUserData(id, email, login, true))
+        dispatch(scoreActions.addScore(response.add, response.size, response.time, response.utime))
     }
 }
 
