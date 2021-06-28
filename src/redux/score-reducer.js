@@ -18,7 +18,7 @@ const scoreReducer = (state = initialState, action) => {
         case SET_SCORE:
             return {...state, score: [...state.score, [...action.payload]]}
         case SET_SCORE_FROM_SERVER:
-            return {...state, score: action.payload.score}
+            return {...state, score: action.payload}
         default:
             return state
     }
@@ -31,7 +31,7 @@ export const scoreActions = {
         payload: [add, size, time, uTime]
     }),
     setScoreFromServer: (score) => ({
-        type: SET_SCORE,
+        type: SET_SCORE_FROM_SERVER,
         payload: score
     }),
 }
@@ -39,7 +39,7 @@ export const scoreActions = {
 
 export const getScoreTH = (userId) => async (dispatch) => {
     let response = await getScore(userId)
-    if (!response) {
+    if (response) {
         dispatch(scoreActions.setScoreFromServer(response.score))
     }
 }
