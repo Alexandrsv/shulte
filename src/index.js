@@ -7,6 +7,7 @@ import bridge from '@vkontakte/vk-bridge';
 import {AdaptivityProvider, AppRoot, ConfigProvider} from "@vkontakte/vkui";
 import {Provider} from "react-redux";
 import store from "./redux/store";
+import { YMInitializer } from 'react-yandex-metrika';
 
 export const UserContext = createContext();
 
@@ -25,6 +26,7 @@ const renderDefault = () => {
                                     <UserContext.Provider value={r}>
                                         <App/>
                                         {/*<Example/>*/}
+                                        <YMInitializer accounts={[82216162]} options={{webvisor: true}} version="2" />
                                     </UserContext.Provider>
                                 </AppRoot>
                             </AdaptivityProvider>
