@@ -1,23 +1,27 @@
 import React from 'react';
 import {Button} from "@vkontakte/vkui";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addScoreTH, getScoreTH} from "../../redux/score-reducer";
 
 const Statistics = () => {
-    const dispatch=useDispatch()
-    const btnGetHandler=()=>{
+    const dispatch = useDispatch()
+    const score = useSelector(s=>s.scoreReducer.score)
+    const btnGetHandler = () => {
         dispatch(getScoreTH(1))
     }
-    const btnPostHandler=()=>{
-        dispatch(addScoreTH(7,250))
+    const btnPostHandler = () => {
+        dispatch(addScoreTH(250))
     }
     return (
         <div>
             Статка. Пока на минималках. Таблица с историей каток, потом сделаю график
+            {score.map((s)=> {
+                return <div>{s.map(l=><span>{l<10000?l:Date(l*1000)}|</span>)}</div>
+            })}
             <Button onClick={btnGetHandler}>Запрс</Button>
             <Button onClick={btnPostHandler}>Добавить</Button>
         </div>
     );
-};
+}
 
-export default Statistics;
+export default Statistics

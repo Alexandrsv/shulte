@@ -1,10 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import s from './Table.module.css'
 import bridge from "@vkontakte/vk-bridge";
-import {Icon16Add, Icon16ClockOurline, Icon16Minus} from "@vkontakte/icons";
+import {Icon16ClockOurline} from "@vkontakte/icons";
 import {Button, Div} from "@vkontakte/vkui";
 import {useDispatch, useSelector} from "react-redux";
-import {settingsActions} from "../../redux/settings-reducer";
 
 
 const getNewTable = (SIZE) => {
@@ -22,7 +21,6 @@ const Table = () => {
     const [time, setTime] = useState(0)
     const [table, setNewTable] = useState([[]])
     const [status, setStatus] = useState('waiting') //waiting|win|game
-    // const [tableSize, setStatus] = useState('waiting') //waiting|win|game
 
     const dispatch = useDispatch()
     const tableSize = useSelector(s => s.settingsReducer.size)
@@ -52,9 +50,7 @@ const Table = () => {
         }
 
     }
-    const onChangeSize = (isIncrease) => {
-        dispatch(settingsActions.changeTableSize(isIncrease))
-    }
+
 
     const onRestartTable = () => {
         setNewTable(getNewTable(tableSize))
@@ -69,19 +65,6 @@ const Table = () => {
 
     return (
         <>
-
-            <div style={{
-                display: 'flex',
-                justifyContent: 'space-between'
-            }}>
-                <span className={s.Cell} style={{margin: '10px'}} onClick={() => onChangeSize(true)}><Icon16Add
-                    width={48} height={48}/></span>
-                <span className={s.Cell} style={{margin: '10px'}} onClick={() => onChangeSize(false)}><Icon16Minus
-                    width={48} height={48}/></span>
-            </div>
-
-            {/*<button onClick={() => onChangeSize(true)}>+</button>*/}
-            {/*<button onClick={() => onChangeSize(false)}>-</button>*/}
             <div className={s.Table}>
                 {status !== 'waiting' && ''}
                 <span style={{padding: '10px', visibility: status !== 'waiting' ? 'visible' : 'hidden'}}>

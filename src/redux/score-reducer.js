@@ -5,7 +5,7 @@ const SET_SCORE_FROM_SERVER = 'score/SET_SCORE_FROM_SERVER'
 
 
 let initialState = {
-    score: [[]],
+    score: [],
 }
 // add: 17
 // size: 5
@@ -13,7 +13,7 @@ let initialState = {
 // utime: 1624883257
 
 const scoreReducer = (state = initialState, action) => {
-    console.log('action', action)
+    console.log('scoreReducer', action)
     switch (action.type) {
         case SET_SCORE:
             return {...state, score: [...state.score, [...action.payload]]}
@@ -26,9 +26,9 @@ const scoreReducer = (state = initialState, action) => {
 
 export const scoreActions = {
 
-    addScore: (add, size, time, uTime) => ({
+    addScore: (size, time, uTime) => ({
         type: SET_SCORE,
-        payload: [add, size, time, uTime]
+        payload: [size, time, uTime]
     }),
     setScoreFromServer: (score) => ({
         type: SET_SCORE_FROM_SERVER,
@@ -44,11 +44,11 @@ export const getScoreTH = (userId) => async (dispatch) => {
     }
 }
 
-export const addScoreTH = (size, time) => async (dispatch, getState) => {
+export const addScoreTH = (time) => async (dispatch, getState) => {
     const size = getState().settingsReducer.size
     let response = await addScore(size, time)
     if (response) {
-        dispatch(scoreActions.addScore(response.add, response.size, response.time, response.utime))
+        dispatch(scoreActions.addScore(response.size, response.time, response.utime))
     }
 }
 

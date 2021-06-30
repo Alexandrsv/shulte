@@ -7,7 +7,7 @@ import bridge from '@vkontakte/vk-bridge';
 import {AdaptivityProvider, AppRoot, ConfigProvider} from "@vkontakte/vkui";
 import {Provider} from "react-redux";
 import store from "./redux/store";
-import { YMInitializer } from 'react-yandex-metrika';
+import {YMInitializer} from 'react-yandex-metrika';
 
 export const UserContext = createContext();
 
@@ -15,31 +15,26 @@ bridge.send("VKWebAppInit", {});
 
 
 const renderDefault = () => {
-    bridge.send('VKWebAppInit').then(_ => {
-        bridge.send('VKWebAppGetUserInfo').then(r => {
-            ReactDOM.render(
-                <React.StrictMode>
-                    <Provider store={store}>
-                        <ConfigProvider webviewType='internal'>
-                            <AdaptivityProvider>
-                                <AppRoot>
-                                    <UserContext.Provider value={r}>
-                                        <App/>
-                                        {/*<Example/>*/}
-                                        <YMInitializer accounts={[82216162]} options={{webvisor: true}} version="2" />
-                                    </UserContext.Provider>
-                                </AppRoot>
-                            </AdaptivityProvider>
-                        </ConfigProvider>
-                    </Provider>
-                </React.StrictMode>,
-                document.getElementById('root')
-            )
+    bridge.send('VKWebAppGetUserInfo').then(r => {console.log('VKWebAppGetUserInfo',r)})
+    ReactDOM.render(
+        <React.StrictMode>
+            <Provider store={store}>
+                <ConfigProvider webviewType='internal'>
+                    <AdaptivityProvider>
+                        <AppRoot>
+                                <App/>
+                                {/*<Example/>*/}
+                                <YMInitializer accounts={[82216162]} options={{webvisor: true}} version="2"/>
+                        </AppRoot>
+                    </AdaptivityProvider>
+                </ConfigProvider>
+            </Provider>
+        </React.StrictMode>,
+        document.getElementById('root')
+    )
 
-        })
-    })
+
 }
-
 
 
 renderDefault()
