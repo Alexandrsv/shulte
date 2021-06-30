@@ -4,7 +4,8 @@ import bridge from "@vkontakte/vk-bridge";
 import {Icon16ClockOurline} from "@vkontakte/icons";
 import {Button, Div} from "@vkontakte/vkui";
 import {useDispatch, useSelector} from "react-redux";
-import clickSound from '../../assets/audio/click.wav'
+import {clickSound} from "../../assets/audio/click_sound";
+// import clickSound from '../../assets/audio/click.wav'
 
 const getNewTable = (SIZE) => {
     const arrValues = Array(SIZE * SIZE).fill('').map((v, i) => i + 1)
@@ -21,8 +22,8 @@ const Table = () => {
     const [time, setTime] = useState(0)
     const [table, setNewTable] = useState([[]])
     const [status, setStatus] = useState('waiting') //waiting|win|game
-    const audio = new Audio(clickSound)
-    audio.volume = 0.2
+    // const clickSound = new Audio(clickSound)
+    clickSound.volume = 0.2
     const dispatch = useDispatch()
     const tableSize = useSelector(s => s.settingsReducer.size)
     const intervalRef = useRef()
@@ -45,7 +46,7 @@ const Table = () => {
     const onItemClick = (e) => {
         const item = e.target.childNodes[0].data
         if (itemForSearch === +item) {
-            audio.play()
+            clickSound.play()
             setItemForSearch(itemForSearch + 1)
         } else {
 
