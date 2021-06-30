@@ -39,7 +39,7 @@ const Settings = () => {
 
     return (
         <>
-            <Group mode="card">
+            <Group mode="plain">
                 <Title level='1' style={{paddingTop: '20px'}} weight={'medium'}>Настройки таблицы</Title>
                 <FormItem top={<Text weight="semibold" style={{marginBottom: 16}}>Размер таблицы</Text>}>
                     <Select
@@ -52,7 +52,6 @@ const Settings = () => {
                     <Select
                         onChange={onChangeType}
                         value={tableType}
-                        placeholder={tableType}
                         options={allTableTypes}
                     />
                 </FormItem>

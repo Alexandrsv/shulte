@@ -95,8 +95,7 @@ const App = withAdaptivity(({viewWidth}) => {
                         <Panel id="settings">
                             <PanelHeader>Настройки</PanelHeader>
                             <Group style={{}}>
-                                <Placeholder icon={<Icon28GearCircleFillGray width={56} height={56}/>}>
-                                </Placeholder>
+                                <Icon28GearCircleFillGray style={{margin:"auto",paddingTop:'25px'}} width={56} height={56}/>
                                 <Settings/>
                             </Group>
                         </Panel>
