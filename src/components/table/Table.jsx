@@ -12,7 +12,7 @@ const getNewTable = (SIZE) => {
     return Array(SIZE).fill('').map(() => Array(SIZE).fill('').map(() => arrValues.getRandom()))
 }
 
-const increeceTime = (t) => {
+const increaseTime = (t) => {
     const newTime = +t + 0.1
     return newTime.toFixed(1)
 }
@@ -23,7 +23,7 @@ const Table = () => {
     const [table, setNewTable] = useState([[]])
     const [status, setStatus] = useState('waiting') //waiting|win|game
     // const clickSound = new Audio(clickSound)
-    clickSound.volume = 0.2
+
     const dispatch = useDispatch()
     const tableSize = useSelector(s => s.settingsReducer.size)
     const intervalRef = useRef()
@@ -46,12 +46,11 @@ const Table = () => {
     const onItemClick = (e) => {
         const item = e.target.childNodes[0].data
         if (itemForSearch === +item) {
-            clickSound.play()
+            const sound = clickSound()
+            sound.volume = 0.2
+            sound.play().catch(e => console.log('Play', e))
             setItemForSearch(itemForSearch + 1)
-        } else {
-
         }
-
     }
 
 
@@ -62,7 +61,7 @@ const Table = () => {
         clearInterval(intervalRef.current)
         setTime(0)
         intervalRef.current = setInterval(() => {
-            setTime(t => increeceTime(t))
+            setTime(t => increaseTime(t))
         }, 100)
     }
 
