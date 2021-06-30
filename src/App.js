@@ -43,14 +43,15 @@ const App = withAdaptivity(({viewWidth}) => {
             header={hasHeader && <PanelHeader separator={false}/>}
             style={{justifyContent: "center"}}
         >
-
             <SplitCol
                 animate={true}
                 // width={'100%'}
                 // maxWidth={'100%'}
             >
                 <Epic activeStory={activeStory} tabbar={
-                    <Tabbar shadow={false}>
+                    <Tabbar shadow={false} onClick={() => {
+                        console.log('State', state)
+                    }}>
                         <TabbarItem
                             onClick={onStoryChange}
                             selected={activeStory === 'table'}
@@ -70,17 +71,6 @@ const App = withAdaptivity(({viewWidth}) => {
                             label="2"
                             text="Настройки"
                         ><Icon28GearCircleFillGray/></TabbarItem>
-                        <TabbarItem
-                            onClick={() => {
-                                console.log('State', state)
-                            }}
-                            selected={activeStory === 'settings'}
-                            data-story="settings"
-                            label="2"
-                            text="State"
-                        ><Icon28GearCircleFillGray/></TabbarItem>
-
-
                     </Tabbar>
                 }>
                     <View id="table" activePanel="table">
