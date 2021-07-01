@@ -14,6 +14,7 @@ const allTableTypes = [
     {value: 'Цифры', label: 'Цифры'},
     {value: 'Русский алфавит', label: 'Русский алфавит'},
     {value: 'Английский алфавит', label: 'Английский алфавит'},
+    {value: 'Рунический алфавит', label: 'Рунический алфавит'},
 ]
 
 const allTableSizes = Array(5).fill('').map((v, i) => ({

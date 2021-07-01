@@ -23,11 +23,16 @@ const getAlphabet = (tableSize, tableType) => {
                 .map((v, i) => String.fromCharCode(i + 65))
                 .filter((l) => /^[A-Za-z]/.test(l))
             break
+        case 'Рунический алфавит':
+            alphabet = Array(tableSize * tableSize).fill('') //в латинице между большими и малыми идет 6 символов, их выпилит фильтр
+                .map((v, i) => String.fromCharCode(i + 5792))
+            break
         default:
             alphabet = Array(tableSize * tableSize).fill('').map((v, i) => i + 1)
     }
     return alphabet
 }
+
 
 const getNewTable = (tableSize, tableType) => {
     const alphabet = getAlphabet(tableSize, tableType)
