@@ -26,13 +26,15 @@ const Table = () => {
 
     const dispatch = useDispatch()
     const tableSize = useSelector(s => s.settingsReducer.size)
+    const isShuffleCells = useSelector(s => s.settingsReducer.isShuffleCells)
+    const isVibed = useSelector(s => s.settingsReducer.isVibed)
+    const isSound = useSelector(s => s.settingsReducer.isSound)
     const intervalRef = useRef()
 
     useEffect(() => { //Обработка победы, остановка таймера
         if (itemForSearch > Math.pow(tableSize, 2)) {
             setStatus('win')
             clearInterval(intervalRef.current);
-            bridge.send("VKWebAppTapticNotificationOccurred", {"type": "success"});
         }
     }, [itemForSearch, tableSize])
 
@@ -45,9 +47,13 @@ const Table = () => {
 
     const onItemClick = (item) => {
         if (itemForSearch === +item) {
-            const sound = clickSound()
-            sound.volume = 0.2
-            sound.play().catch(e => console.log('Play', e))
+            if (isSound){
+                const sound = clickSound()
+                sound.volume = 0.2
+                sound.play().catch(e => console.log('Play', e))
+            }
+            isVibed && bridge.send("VKWebAppTapticImpactOccurred", {"style": "light"})
+            isShuffleCells && setNewTable(getNewTable(tableSize))
             setItemForSearch(itemForSearch + 1)
         }
     }
@@ -91,9 +97,9 @@ const Table = () => {
                         {
                             v.map(vv => <Touch
                                 key={vv}
-                                onClick={()=>onItemClick(vv)}
+                                onClick={() => onItemClick(vv)}
                                 noSlideClick={false}
-                                onMove={()=>onItemClick(vv)}
+                                onMove={() => onItemClick(vv)}
                                 className={s.Cell}>{vv}</Touch>)
                         }
                     </div>)}
