@@ -112,7 +112,7 @@ const Table = () => {
                     ? 'Победа!'
                     : status === 'waiting'
                         ? 'Нажмите пуск и найдите символы, начиная с первого'
-                        : 'Найди ' + getAlphabet(tableSize, tableType)[itemForSearch] || ''}
+                        : 'Найди ' + (getAlphabet(tableSize, tableType)[itemForSearch] || 0)}
                 </h1>
 
                 {table.map((v, i) =>
