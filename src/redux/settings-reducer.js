@@ -7,12 +7,11 @@ const CHANGE_SOUND = 'settings/CHANGE_SOUND'
 
 let initialState = {
     size: 3,
-    tableType: 'Цифры',
+    tableType: 'Цифры', //'Цифры','Русский алфавит','Английский алфавит',
     isShuffleCells: false,
     isVibed: true,
     isSound: true,
 }
-
 
 const settingsReducer = (state = initialState, action) => {
     console.log('settingsReducer', action)
