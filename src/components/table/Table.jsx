@@ -36,7 +36,6 @@ const getAlphabet = (tableSize, tableType) => {
 
 const getNewTable = (tableSize, tableType) => {
     const alphabet = getAlphabet(tableSize, tableType)
-    console.log(alphabet)
     return Array(tableSize).fill('').map(() => Array(tableSize).fill('').map(() => alphabet.getRandom()))
 }
 
@@ -74,7 +73,6 @@ const Table = () => {
 
 
     const onItemClick = (item) => {
-        console.log(item)
         if (getAlphabet(tableSize, tableType)[itemForSearch] === item) {
             if (isSound) {
                 const sound = clickSound()
