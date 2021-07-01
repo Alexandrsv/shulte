@@ -5,4 +5,4 @@ export const clickSound = () => new Audio('data:audio/ogg;base64,T2dnUwACAAAAAAA
 
 
 //online converter https://base64.guru/converter/encode/audio/wav
-
+//https://dopiaza.org/tools/datauri/index.php

@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import s from './Table.module.css'
 import bridge from "@vkontakte/vk-bridge";
 import {Icon16ClockOurline} from "@vkontakte/icons";
-import {Button, Div} from "@vkontakte/vkui";
+import {Button, Div, Touch} from "@vkontakte/vkui";
 import {useDispatch, useSelector} from "react-redux";
 import {clickSound} from "../../assets/audio/click_sound";
 // import clickSound from '../../assets/audio/click.wav'
@@ -43,8 +43,7 @@ const Table = () => {
     }, [setNewTable, tableSize])
 
 
-    const onItemClick = (e) => {
-        const item = e.target.childNodes[0].data
+    const onItemClick = (item) => {
         if (itemForSearch === +item) {
             const sound = clickSound()
             sound.volume = 0.2
@@ -90,7 +89,12 @@ const Table = () => {
                 {table.map((v, i) =>
                     <div key={i} className={s.Row}>
                         {
-                            v.map(vv => <span key={vv} onClick={onItemClick} className={s.Cell}>{vv}</span>)
+                            v.map(vv => <Touch
+                                key={vv}
+                                onClick={()=>onItemClick(vv)}
+                                noSlideClick={false}
+                                onMove={()=>onItemClick(vv)}
+                                className={s.Cell}>{vv}</Touch>)
                         }
                     </div>)}
                 {itemForSearch === Math.pow(table.length + 1, 2) && <h1>Победа</h1>}
