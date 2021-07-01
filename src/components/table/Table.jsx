@@ -57,6 +57,9 @@ const Table = () => {
     const tableType = useSelector(s => s.settingsReducer.tableType)
 
     const intervalRef = useRef()
+    useEffect(() => {
+        return () => clearInterval(intervalRef.current)
+    }, [])
 
     useEffect(() => { //Обработка победы, остановка таймера
         if (itemForSearch >= Math.pow(tableSize, 2)) {
@@ -64,7 +67,6 @@ const Table = () => {
             clearInterval(intervalRef.current);
         }
     }, [itemForSearch, tableSize])
-
 
     useEffect(() => { //Старт
         setNewTable(getNewTable(tableSize, tableType))
