@@ -1,18 +1,27 @@
 import React, {useEffect, useRef, useState} from 'react';
 import s from './Table.module.css'
 import bridge from "@vkontakte/vk-bridge";
-import {Icon16ClockOurline} from "@vkontakte/icons";
 import {Button, Div, Touch} from "@vkontakte/vkui";
 import {useSelector} from "react-redux";
 import {clickSound} from "../../assets/audio/click_sound";
 // import clickSound from '../../assets/audio/click.wav'
+import cn from 'classnames'
+import {TableStatus} from "./TableStatus";
+import * as PropTypes from "prop-types";
+import {TableTimer} from "./TableTimer";
 
-
-const getAlphabet = (tableSize, tableType) => {
+const getAlphabet = (tableSize, tableType) => { //TODO: Влупи ретерны сразу, без break
     let alphabet
     switch (tableType) {
         case 'Цифры':
             alphabet = Array(tableSize * tableSize).fill('').map((v, i) => i + 1)
+            break
+        case 'Таблица Горбова-Шульте':
+            alphabet = Array(Math.ceil(Math.pow(tableSize, 2) / 2) + 1)
+                .fill('')
+                .reduce((acc, val, i) => (acc.length + 2) <= Math.pow(tableSize, 2)
+                    ? [...acc, i, i - Math.round(Math.pow(tableSize, 2) / 2) - 1]
+                    : [...acc, i])
             break
         case 'Русский алфавит':
             alphabet = Array(tableSize * tableSize).fill('')
@@ -33,7 +42,6 @@ const getAlphabet = (tableSize, tableType) => {
     return alphabet
 }
 
-
 const getNewTable = (tableSize, tableType) => {
     const alphabet = getAlphabet(tableSize, tableType)
     return Array(tableSize).fill('').map(() => Array(tableSize).fill('').map(() => alphabet.getRandom()))
@@ -44,6 +52,11 @@ const increaseTime = (t) => {
     return newTime.toFixed(1)
 }
 
+
+TableTimer.propTypes = {
+    status: PropTypes.string,
+    time: PropTypes.number
+};
 const Table = () => {
     const [itemForSearch, setItemForSearch] = useState(0)
     const [time, setTime] = useState(0)
@@ -102,23 +115,13 @@ const Table = () => {
     return (
         <>
             <div className={s.Table}>
-                <span style={{padding: '10px', visibility: status !== 'waiting' ? 'visible' : 'hidden'}}>
-                        <Icon16ClockOurline/>
-                    </span>
-                <div style={{
-                    display: "inline",
-                    fontFamily: 'monospace',
-                    visibility: status !== 'waiting' ? 'visible' : 'hidden'
-                }}>
-                    {time + ' сек'}
-                </div>
+                <TableTimer status={status} time={time}/>
 
-                <h1>{status === 'win'
-                    ? 'Победа!'
-                    : status === 'waiting'
-                        ? 'Нажмите пуск и найдите символы, начиная с первого'
-                        : 'Найди ' + (getAlphabet(tableSize, tableType)[itemForSearch] || 0)}
-                </h1>
+                <TableStatus status={status}
+                             getAlphabet={getAlphabet}
+                             tableSize={tableSize}
+                             tableType={tableType}
+                             itemForSearch={itemForSearch}/>
 
                 {table.map((v, i) =>
                     <div key={i} className={s.Row}>
@@ -128,7 +131,12 @@ const Table = () => {
                                 onClick={() => onItemClick(vv)}
                                 noSlideClick={false}
                                 onMove={() => onItemClick(vv)}
-                                className={s.Cell}>{vv}</Touch>)
+                                className={cn({
+                                    [s.Cell]: true,
+                                    [s.CellBlack]: tableType === 'Таблица Горбова-Шульте' && vv > 0,
+                                    [s.CellRed]: tableType === 'Таблица Горбова-Шульте' && vv < 0
+                                })
+                                }>{Math.abs(vv)}</Touch>)
                         }
                     </div>)}
                 <br/>

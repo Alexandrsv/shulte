@@ -7,7 +7,7 @@ const CHANGE_SOUND = 'settings/CHANGE_SOUND'
 
 let initialState = {
     size: 3,
-    tableType: 'Цифры', //'Цифры','Русский алфавит','Английский алфавит',
+    tableType: 'Цифры', //'Цифры','Русский алфавит','Английский алфавит','Рунический алфавит', 'Таблица Горбова-Шульте'
     isShuffleCells: false,
     isVibed: true,
     isSound: true,
