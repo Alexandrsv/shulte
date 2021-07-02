@@ -136,7 +136,7 @@ const Table = () => {
                                     [s.CellBlack]: tableType === 'Таблица Горбова-Шульте' && vv > 0,
                                     [s.CellRed]: tableType === 'Таблица Горбова-Шульте' && vv < 0
                                 })
-                                }>{Math.abs(vv)}</Touch>)
+                                }>{Number.isInteger(vv) ? Math.abs(vv) : vv}</Touch>)
                         }
                     </div>)}
                 <br/>

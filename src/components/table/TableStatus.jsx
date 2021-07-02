@@ -3,6 +3,7 @@ import React from "react";
 import cn from "classnames";
 
 export function TableStatus({status, getAlphabet, tableSize, tableType, itemForSearch}) {
+    const searchSymbol = getAlphabet(tableSize, tableType)[itemForSearch] || 0
     return <h1>{status === "win"
         ? "Победа!"
         : status === "waiting"
@@ -10,7 +11,7 @@ export function TableStatus({status, getAlphabet, tableSize, tableType, itemForS
             : <>
                 <span>Найди&nbsp;</span>
                 <span className={cn({[s.TargetSymbolRed]: getAlphabet(tableSize, tableType)[itemForSearch] < 0})}>
-                 {Math.abs(getAlphabet(tableSize, tableType)[itemForSearch] || 0)}
+                 {Number.isInteger(searchSymbol) ? Math.abs(searchSymbol) : searchSymbol}
                 </span>
             </>}
     </h1>;
