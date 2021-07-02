@@ -7,39 +7,31 @@ import {clickSound} from "../../assets/audio/click_sound";
 // import clickSound from '../../assets/audio/click.wav'
 import cn from 'classnames'
 import {TableStatus} from "./TableStatus";
-import * as PropTypes from "prop-types";
 import {TableTimer} from "./TableTimer";
 
-const getAlphabet = (tableSize, tableType) => { //TODO: Влупи ретерны сразу, без break
-    let alphabet
+const getAlphabet = (tableSize, tableType) => {
     switch (tableType) {
         case 'Цифры':
-            alphabet = Array(tableSize * tableSize).fill('').map((v, i) => i + 1)
-            break
+            return Array(tableSize * tableSize).fill('').map((v, i) => i + 1)
         case 'Таблица Горбова-Шульте':
-            alphabet = Array(Math.ceil(Math.pow(tableSize, 2) / 2) + 1)
+            return Array(Math.ceil(Math.pow(tableSize, 2) / 2) + 1)
                 .fill('')
                 .reduce((acc, val, i) => (acc.length + 2) <= Math.pow(tableSize, 2)
                     ? [...acc, i, i - Math.round(Math.pow(tableSize, 2) / 2) - 1]
                     : [...acc, i])
-            break
         case 'Русский алфавит':
-            alphabet = Array(tableSize * tableSize).fill('')
+            return Array(tableSize * tableSize).fill('')
                 .map((v, i) => String.fromCharCode(i + 1040))
-            break
         case 'Английский алфавит':
-            alphabet = Array(tableSize * tableSize + 6).fill('') //в латинице между большими и малыми идет 6 символов, их выпилит фильтр
+            return Array(tableSize * tableSize + 6).fill('') //в латинице между большими и малыми идет 6 символов, их выпилит фильтр
                 .map((v, i) => String.fromCharCode(i + 65))
                 .filter((l) => /^[A-Za-z]/.test(l))
-            break
         case 'Рунический алфавит':
-            alphabet = Array(tableSize * tableSize).fill('') //в латинице между большими и малыми идет 6 символов, их выпилит фильтр
+            return Array(tableSize * tableSize).fill('') //в латинице между большими и малыми идет 6 символов, их выпилит фильтр
                 .map((v, i) => String.fromCharCode(i + 5792))
-            break
         default:
-            alphabet = Array(tableSize * tableSize).fill('').map((v, i) => i + 1)
+            return Array(tableSize * tableSize).fill('').map((v, i) => i + 1)
     }
-    return alphabet
 }
 
 const getNewTable = (tableSize, tableType) => {
@@ -53,10 +45,6 @@ const increaseTime = (t) => {
 }
 
 
-TableTimer.propTypes = {
-    status: PropTypes.string,
-    time: PropTypes.number
-};
 const Table = () => {
     const [itemForSearch, setItemForSearch] = useState(0)
     const [time, setTime] = useState(0)
