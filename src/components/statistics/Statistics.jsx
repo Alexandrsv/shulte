@@ -2,6 +2,7 @@ import React from 'react';
 import {Button} from "@vkontakte/vkui";
 import {useDispatch, useSelector} from "react-redux";
 import {addScoreTH, getScoreTH} from "../../redux/score-reducer";
+import {Chart} from "./Chart";
 
 const Statistics = () => {
     const dispatch = useDispatch()
@@ -20,8 +21,10 @@ const Statistics = () => {
             })}
             <Button onClick={btnGetHandler}>Запрс</Button>
             <Button onClick={btnPostHandler}>Добавить</Button>
+            <hr/><hr/>
+            <Chart/>
         </div>
-    );
+    )
 }
 
 export default Statistics

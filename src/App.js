@@ -6,7 +6,6 @@ import {
     Group,
     Panel,
     PanelHeader,
-    Placeholder,
     SplitCol,
     SplitLayout,
     Tabbar,
@@ -85,8 +84,7 @@ const App = withAdaptivity(({viewWidth}) => {
                         <Panel id="statistics">
                             <PanelHeader>Статистика</PanelHeader>
                             <Group style={{}}>
-                                <Placeholder icon={<Icon28GraphOutline width={56} height={56}/>}>
-                                </Placeholder>
+                                {/*<Placeholder icon={<Icon28GraphOutline width={56} height={56}/>}></Placeholder>*/}
                                 <Statistics/>
                             </Group>
                         </Panel>
@@ -95,7 +93,8 @@ const App = withAdaptivity(({viewWidth}) => {
                         <Panel id="settings">
                             <PanelHeader>Настройки</PanelHeader>
                             <Group style={{}}>
-                                <Icon28GearCircleFillGray style={{margin:"auto",paddingTop:'25px'}} width={56} height={56}/>
+                                <Icon28GearCircleFillGray style={{margin: "auto", paddingTop: '25px'}} width={56}
+                                                          height={56}/>
                                 <Settings/>
                             </Group>
                         </Panel>
