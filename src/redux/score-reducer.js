@@ -1,6 +1,6 @@
 import {addScore, getScore} from "../api/api";
 
-const SET_SCORE = 'score/SET_SCORE'
+const ADD_RESULT_TO_SCORE = 'score/ADD_RESULT_TO_SCORE'
 const SET_SCORE_FROM_SERVER = 'score/SET_SCORE_FROM_SERVER'
 
 
@@ -15,7 +15,7 @@ let initialState = {
 const scoreReducer = (state = initialState, action) => {
     console.log('scoreReducer', action)
     switch (action.type) {
-        case SET_SCORE:
+        case ADD_RESULT_TO_SCORE:
             return {...state, score: [...state.score, [...action.payload]]}
         case SET_SCORE_FROM_SERVER:
             return {...state, score: action.payload}
@@ -24,23 +24,21 @@ const scoreReducer = (state = initialState, action) => {
     }
 }
 
-export const scoreActions = {
 
-    addScore: (size, time, uTime) => ({
-        type: SET_SCORE,
-        payload: [size, time, uTime]
-    }),
-    setScoreFromServer: (score) => ({
-        type: SET_SCORE_FROM_SERVER,
-        payload: score
-    }),
-}
+export const addResultToScore = (tableSize, tableType, isShuffleCells, date) => ({
+    type: ADD_RESULT_TO_SCORE,
+    payload: [tableSize, tableType, isShuffleCells, date]
+})
 
+export const setScoreFromServer = (score) => ({
+    type: SET_SCORE_FROM_SERVER,
+    payload: score
+})
 
 export const getScoreTH = (userId) => async (dispatch) => {
     let response = await getScore(userId)
     if (response) {
-        dispatch(scoreActions.setScoreFromServer(response.score))
+        dispatch(setScoreFromServer(response.score))
     }
 }
 
@@ -48,7 +46,7 @@ export const addScoreTH = (time) => async (dispatch, getState) => {
     const size = getState().settingsReducer.size
     let response = await addScore(size, time)
     if (response) {
-        dispatch(scoreActions.addScore(response.size, response.time, response.utime))
+        dispatch(addResultToScore(response.size, response.time, response.utime))
     }
 }
 

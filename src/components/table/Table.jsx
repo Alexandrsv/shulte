@@ -2,47 +2,14 @@ import React, {useEffect, useRef, useState} from 'react';
 import s from './Table.module.css'
 import bridge from "@vkontakte/vk-bridge";
 import {Button, Div, Touch} from "@vkontakte/vkui";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {clickSound} from "../../assets/audio/click_sound";
 // import clickSound from '../../assets/audio/click.wav'
 import cn from 'classnames'
 import {TableStatus} from "./TableStatus";
 import {TableTimer} from "./TableTimer";
-
-const getAlphabet = (tableSize, tableType) => {
-    switch (tableType) {
-        case 'Цифры':
-            return Array(tableSize * tableSize).fill('').map((v, i) => i + 1)
-        case 'Таблица Горбова-Шульте':
-            return Array(Math.ceil(Math.pow(tableSize, 2) / 2) + 1)
-                .fill('')
-                .reduce((acc, val, i) => (acc.length + 2) <= Math.pow(tableSize, 2)
-                    ? [...acc, i, i - Math.round(Math.pow(tableSize, 2) / 2) - 1]
-                    : [...acc, i])
-        case 'Русский алфавит':
-            return Array(tableSize * tableSize).fill('')
-                .map((v, i) => String.fromCharCode(i + 1040))
-        case 'Английский алфавит':
-            return Array(tableSize * tableSize + 6).fill('') //в латинице между большими и малыми идет 6 символов, их выпилит фильтр
-                .map((v, i) => String.fromCharCode(i + 65))
-                .filter((l) => /^[A-Za-z]/.test(l))
-        case 'Рунический алфавит':
-            return Array(tableSize * tableSize).fill('') //в латинице между большими и малыми идет 6 символов, их выпилит фильтр
-                .map((v, i) => String.fromCharCode(i + 5792))
-        default:
-            return Array(tableSize * tableSize).fill('').map((v, i) => i + 1)
-    }
-}
-
-const getNewTable = (tableSize, tableType) => {
-    const alphabet = getAlphabet(tableSize, tableType)
-    return Array(tableSize).fill('').map(() => Array(tableSize).fill('').map(() => alphabet.getRandom()))
-}
-
-const increaseTime = (t) => {
-    const newTime = +t + 0.1
-    return newTime.toFixed(1)
-}
+import {getAlphabet, getNewTable, increaseTime} from "../../utils/utils";
+import {addResultToScore} from "../../redux/score-reducer";
 
 
 const Table = () => {
@@ -57,6 +24,8 @@ const Table = () => {
     const isSound = useSelector(s => s.settingsReducer.isSound)
     const tableType = useSelector(s => s.settingsReducer.tableType)
 
+    const dispatch = useDispatch()
+
     const intervalRef = useRef()
     useEffect(() => {
         return () => clearInterval(intervalRef.current)
@@ -65,9 +34,10 @@ const Table = () => {
     useEffect(() => { //Обработка победы, остановка таймера
         if (itemForSearch >= Math.pow(tableSize, 2)) {
             setStatus('win')
-            clearInterval(intervalRef.current);
+            clearInterval(intervalRef.current)
+            dispatch(addResultToScore(tableSize, tableType, isShuffleCells, Date.now()))
         }
-    }, [itemForSearch, tableSize])
+    }, [dispatch, isShuffleCells, itemForSearch, tableSize, tableType])
 
     useEffect(() => { //Старт
         setNewTable(getNewTable(tableSize, tableType))
