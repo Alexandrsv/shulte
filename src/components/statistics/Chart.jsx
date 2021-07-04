@@ -1,6 +1,7 @@
-import {Area, AreaChart, Brush, CartesianGrid, Label, Tooltip, XAxis, YAxis} from 'recharts';
+import {Area, AreaChart, CartesianGrid, Label, Tooltip, XAxis, YAxis} from 'recharts';
 import {useSelector} from "react-redux";
-import {usePlatform} from "@vkontakte/vkui";
+import {Icon28GraphOutline} from "@vkontakte/icons";
+import {Placeholder} from "@vkontakte/vkui";
 
 
 // const data = Array(100)
@@ -13,12 +14,18 @@ import {usePlatform} from "@vkontakte/vkui";
 //     }))
 
 
-
 export function Chart() {
-    const platform = usePlatform()
-    const score = useSelector(s => s.scoreReducer.score)
-    const data = score.map((v, i) => ({attemptNumber: i + 1, 'Затраченное время': v.timeOfPassing}))
-    console.log(platform)
+    const tableSize = useSelector(s => s.settingsReducer.size)
+    const tableType = useSelector(s => s.settingsReducer.tableType)
+    const isShuffleCells = useSelector(s => s.settingsReducer.isShuffleCells)
+    const score = useSelector(s => s.scoreReducer.score.filter((v) => {
+        return v.tableSize === tableSize && v.tableType === tableType && v.isShuffleCells === isShuffleCells
+    }))
+    const data = score.map((v, i) => ({attemptNumber: +i + 1, 'Затраченное время': +v.timeOfPassing}))
+    if (data.length === 0) {
+        return <Placeholder icon={<Icon28GraphOutline width={56} height={56}/>}>Нет данных о попытках прохождения
+            таблицы с указанными настройками</Placeholder>
+    }
     return <div>
         <AreaChart width={window.innerWidth} height={250} data={data}
                    margin={{top: 10, right: 30, left: -10, bottom: 20}}
@@ -29,26 +36,27 @@ export function Chart() {
                     <stop offset="99%" stopColor="#fff" stopOpacity={0}/>
                 </linearGradient>
             </defs>
-            <XAxis dataKey="attemptNumber" type={'number'}>
+            <XAxis dataKey="attemptNumber"
+                   type={'number'}
+                   allowDecimals={false}
+                   >
                 <Label value="Номер попытки" offset={-10} position="bottom"/>
             </XAxis>
             <YAxis axisLine={false}>
                 <Label value={'Время в секундах'} position="Left" angle={-90} type={'number'}/>
             </YAxis>
             <CartesianGrid strokeDasharray="3 3" vertical={false}/>
-            <Tooltip payload={[{ name: '05-01', value: 12, unit: 'kg' }]}
-                     label={'213'}
-                     separator={':'}
-                     labelFormatter={(props)=> {
-                         console.log(props)
-                         return `Попытка номер ${props}`
-                     }}
-                     formatter={(props)=> {
-                         console.log(props)
-                         return ` ${props} сек`
-                     }}
+            <Tooltip
+                label={'213'}
+                separator={':'}
+                labelFormatter={(props) => {
+                    return `Попытка номер ${props}`
+                }}
+                formatter={(props) => {
+                    return ` ${props} сек`
+                }}
             />
-            <Area type="monotone" dataKey='Затраченное время' stroke="#4986CC" fillOpacity={1} fill="url(#colorUv)" />
+            <Area type="monotone" dataKey='Затраченное время' stroke="#4986CC" fillOpacity={1} fill="url(#colorUv)"/>
             {/*<Brush*/}
             {/*    data={data}*/}
             {/*    dataKey={'attemptNumber'}*/}

@@ -23,7 +23,7 @@ const allTableSizes = Array(5).fill('').map((v, i) => ({
     label: String(i + 3)
 }))
 
-const Settings = () => {
+const Settings = ({isScoreSettings = false}) => {
     const tableSize = useSelector(s => s.settingsReducer.size)
     const tableType = useSelector(s => s.settingsReducer.tableType)
     const isShuffleCells = useSelector(s => s.settingsReducer.isShuffleCells)
@@ -42,7 +42,8 @@ const Settings = () => {
     return (
         <>
             <Group mode="plain">
-                <Title level='1' style={{paddingTop: '20px'}} weight={'medium'}>Настройки таблицы</Title>
+                <Title level='1' style={isScoreSettings ? {display: 'none'} : {paddingTop: '20px'}} weight={'medium'}>Настройки
+                    таблицы</Title>
                 <FormItem top={<Text weight="semibold" style={{marginBottom: 16}}>Размер таблицы</Text>}>
                     <Select
                         onChange={onChangeSize}
@@ -59,8 +60,10 @@ const Settings = () => {
                 </FormItem>
                 <Checkbox checked={isShuffleCells} onChange={(e) => onChangeShuffle(e)}>При нахождении символа
                     перемешать ячейки</Checkbox>
-                <Checkbox checked={isVibed} onChange={(e) => onChangeVibed(e)}>Вибрация при клике</Checkbox>
-                <Checkbox checked={isSound} onChange={(e) => onChangeSound(e)}>Звук при клике</Checkbox>
+                <Checkbox style={isScoreSettings ? {display: 'none'} : {}} checked={isVibed}
+                          onChange={(e) => onChangeVibed(e)}>Вибрация при клике</Checkbox>
+                <Checkbox style={isScoreSettings ? {display: 'none'} : {}} checked={isSound}
+                          onChange={(e) => onChangeSound(e)}>Звук при клике</Checkbox>
 
             </Group>
 

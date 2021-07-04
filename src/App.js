@@ -44,12 +44,10 @@ const App = withAdaptivity(({viewWidth}) => {
         >
             <SplitCol
                 animate={true}
-                // width={'100%'}
-                // maxWidth={'100%'}
             >
                 <Epic activeStory={activeStory} tabbar={
                     <Tabbar shadow={false} onClick={() => {
-                        console.log('State', state)
+                        // console.log('State', state)
                     }}>
                         <TabbarItem
                             onClick={onStoryChange}
@@ -67,7 +65,6 @@ const App = withAdaptivity(({viewWidth}) => {
                             onClick={onStoryChange}
                             selected={activeStory === 'settings'}
                             data-story="settings"
-                            label="2"
                             text="Настройки"
                         ><Icon28GearCircleFillGray/></TabbarItem>
                     </Tabbar>
