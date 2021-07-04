@@ -14,7 +14,7 @@ import {addResultToScore} from "../../redux/score-reducer";
 
 const Table = () => {
     const [itemForSearch, setItemForSearch] = useState(0)
-    const [time, setTime] = useState(0)
+    const [timeOfPassing, setTime] = useState(0)
     const [table, setNewTable] = useState([[]])
     const [status, setStatus] = useState('waiting') //waiting|win|game
 
@@ -35,9 +35,9 @@ const Table = () => {
         if (itemForSearch >= Math.pow(tableSize, 2)) {
             setStatus('win')
             clearInterval(intervalRef.current)
-            dispatch(addResultToScore(tableSize, tableType, isShuffleCells, Date.now()))
+            dispatch(addResultToScore(tableSize, tableType, isShuffleCells, timeOfPassing, Date.now()))
         }
-    }, [dispatch, isShuffleCells, itemForSearch, tableSize, tableType])
+    }, [dispatch, isShuffleCells, itemForSearch, tableSize, tableType, timeOfPassing])
 
     useEffect(() => { //Старт
         setNewTable(getNewTable(tableSize, tableType))
@@ -73,7 +73,7 @@ const Table = () => {
     return (
         <>
             <div className={s.Table}>
-                <TableTimer status={status} time={time}/>
+                <TableTimer status={status} time={timeOfPassing}/>
 
                 <TableStatus status={status}
                              getAlphabet={getAlphabet}

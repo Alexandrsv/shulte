@@ -16,7 +16,7 @@ const scoreReducer = (state = initialState, action) => {
     console.log('scoreReducer', action)
     switch (action.type) {
         case ADD_RESULT_TO_SCORE:
-            return {...state, score: [...state.score, [...action.payload]]}
+            return {...state, score: [...state.score, action.payload]}
         case SET_SCORE_FROM_SERVER:
             return {...state, score: action.payload}
         default:
@@ -25,9 +25,9 @@ const scoreReducer = (state = initialState, action) => {
 }
 
 
-export const addResultToScore = (tableSize, tableType, isShuffleCells, date) => ({
+export const addResultToScore = (tableSize, tableType, isShuffleCells, timeOfPassing, date) => ({
     type: ADD_RESULT_TO_SCORE,
-    payload: [tableSize, tableType, isShuffleCells, date]
+    payload: {tableSize, tableType, isShuffleCells, timeOfPassing, date}
 })
 
 export const setScoreFromServer = (score) => ({
