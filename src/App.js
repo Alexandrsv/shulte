@@ -19,7 +19,6 @@ import {
 import "@vkontakte/vkui/dist/vkui.css";
 import {Icon16GridOfFour, Icon28GearCircleFillGray, Icon28GraphOutline} from "@vkontakte/icons";
 import Statistics from "./components/statistics/Statistics";
-import {useSelector} from "react-redux";
 
 // eslint-disable-next-line no-extend-native
 Array.prototype.getRandom = function () {
@@ -35,7 +34,6 @@ const App = withAdaptivity(({viewWidth}) => {
     const onStoryChange = (e) => setActiveStory(e.currentTarget.dataset.story);
     const isDesktop = viewWidth >= ViewWidth.TABLET;
     const hasHeader = platform !== VKCOM;
-    const state = useSelector(s => s)
 
     return (
         <SplitLayout

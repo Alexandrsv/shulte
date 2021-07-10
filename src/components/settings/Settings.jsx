@@ -18,7 +18,7 @@ const allTableTypes = [
     {value: 'Таблица Горбова-Шульте', label: 'Таблица Горбова-Шульте'},
 ]
 
-const allTableSizes = Array(5).fill('').map((v, i) => ({
+const allTableSizes = Array(4).fill('').map((v, i) => ({
     value: String(i + 3),
     label: String(i + 3)
 }))
