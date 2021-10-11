@@ -1,6 +1,6 @@
 import Table from "./components/table/Table";
 import Settings from "./components/settings/Settings";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
     Epic,
     Group,
@@ -12,13 +12,15 @@ import {
     TabbarItem,
     usePlatform,
     View,
-    ViewWidth,
     VKCOM,
     withAdaptivity
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 import {Icon16GridOfFour, Icon28GearCircleFillGray, Icon28GraphOutline} from "@vkontakte/icons";
 import Statistics from "./components/statistics/Statistics";
+import bridge from "@vkontakte/vk-bridge";
+import {useDispatch} from "react-redux";
+import {userInit} from "./redux/init-reducer";
 
 // eslint-disable-next-line no-extend-native
 Array.prototype.getRandom = function () {
@@ -32,8 +34,15 @@ const App = withAdaptivity(({viewWidth}) => {
     const platform = usePlatform();
     const [activeStory, setActiveStory] = useState('table');
     const onStoryChange = (e) => setActiveStory(e.currentTarget.dataset.story);
-    const isDesktop = viewWidth >= ViewWidth.TABLET;
     const hasHeader = platform !== VKCOM;
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        bridge.send('VKWebAppGetUserInfo').then(r => {
+            console.log('VKWebAppGetUserInfo', r)
+            dispatch(userInit(r))
+        })
+    }, [dispatch])
 
     return (
         <SplitLayout

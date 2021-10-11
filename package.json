@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "BROWSER='google-chrome-stable' react-scripts start",
-    "tunnel": "vk-tunnel --insecure=1 --http-protocol=http --ws-protocol=ws --host=localhost --port=3000",
+    "tunnel": "vk-tunnel --insecure=1 --http-protocol=http --ws-protocol=ws --host=localhost --port=3001",
     "build": "BROWSER='google-chrome-stable' react-scripts build",
     "test": "BROWSER='google-chrome-stable' react-scripts test",
     "eject": "BROWSER='google-chrome-stable' react-scripts eject",

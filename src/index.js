@@ -15,7 +15,6 @@ bridge.send("VKWebAppInit", {});
 
 
 const renderDefault = () => {
-    bridge.send('VKWebAppGetUserInfo').then(r => {console.log('VKWebAppGetUserInfo',r)})
     ReactDOM.render(
         <React.StrictMode>
             <Provider store={store}>

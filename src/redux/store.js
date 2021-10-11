@@ -4,10 +4,12 @@ import settingsReducer from "./settings-reducer";
 import scoreReducer from "./score-reducer";
 import {loadState, saveState} from "./localStorage";
 import throttle from 'lodash.throttle';
+import initReducer from "./init-reducer";
 
 let rootReducer = combineReducers({
     settingsReducer,
     scoreReducer,
+    initReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
