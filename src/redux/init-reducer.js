@@ -17,7 +17,7 @@ const initReducer = (state = initialState, action) => {
     console.log('initReducer', action)
     switch (action.type) {
         case SET_USER_INFO:
-            return {...state, user: {...action.payload.user}}
+            return {...state, user: {...action.payload}}
         default:
             return state
     }
@@ -26,7 +26,12 @@ const initReducer = (state = initialState, action) => {
 
 export const setUserInfo = (user) => ({
     type: SET_USER_INFO,
-    payload: {user}
+    payload: {
+        uid: user.uid,
+        name: user.name,
+        sex: user.sex,
+        source: user.source
+    }
 })
 
 
@@ -34,7 +39,7 @@ export const userInit = (userInfo) => async (dispatch) => {
     let response = await getInit(userInfo)
     console.log('response', response)
     if (response) {
-        dispatch(setUserInfo(response.score))
+        dispatch(setUserInfo(response.data))
     }
 }
 

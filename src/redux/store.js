@@ -23,6 +23,7 @@ store.subscribe(throttle(() => {
         ...store.getState()
     });
 }, 1000))
+store.subscribe(()=>console.log('STATE',store.getState()))
 
 window.__store__ = store
 export default store
