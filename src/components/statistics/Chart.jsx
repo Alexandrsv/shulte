@@ -19,7 +19,7 @@ export function Chart() {
     const tableType = useSelector(s => s.settingsReducer.tableType)
     const isShuffleCells = useSelector(s => s.settingsReducer.isShuffleCells)
     const score = useSelector(s => s.scoreReducer.score.filter((v) => {
-        return v.tableSize === tableSize && v.tableType === tableType && v.isShuffleCells === isShuffleCells
+        return v.size === tableSize && v.tableType === tableType && v.isShuffleCells === isShuffleCells
     }))
     const data = score.map((v, i) => ({attemptNumber: +i + 1, 'Затраченное время': +v.timeOfPassing}))
     if (data.length === 0) {

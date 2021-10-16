@@ -7,27 +7,24 @@ const SET_SCORE_FROM_SERVER = 'score/SET_SCORE_FROM_SERVER'
 let initialState = {
     score: [],
 }
-// add: 17
-// size: 5
-// time: 250
-// utime: 1624883257
+// {tableSize: 3, tableType: 'Цифры', isShuffleCells: false, timeOfPassing: '7.8', date: 1634392123814}
 
 const scoreReducer = (state = initialState, action) => {
-    console.log('scoreReducer', action)
     switch (action.type) {
         case ADD_RESULT_TO_SCORE:
             return {...state, score: [...state.score, action.payload]}
         case SET_SCORE_FROM_SERVER:
-            return {...state, score: action.payload}
+            const score = action.payload.map(s=>({...s, date:new Date(s.createdAt).getTime()}))
+            return {...state, score}
         default:
             return state
     }
 }
 
 
-export const addResultToScore = (tableSize, tableType, isShuffleCells, timeOfPassing, date) => ({
+export const addResultToScore = ({size, tableType, isShuffleCells, timeOfPassing, date}) => ({
     type: ADD_RESULT_TO_SCORE,
-    payload: {tableSize, tableType, isShuffleCells, timeOfPassing, date}
+    payload: {size, tableType, isShuffleCells, timeOfPassing, date}
 })
 
 export const setScoreFromServer = (score) => ({
@@ -38,15 +35,15 @@ export const setScoreFromServer = (score) => ({
 export const getScoreTH = (userId) => async (dispatch) => {
     let response = await getScore(userId)
     if (response) {
-        dispatch(setScoreFromServer(response.score))
+        dispatch(setScoreFromServer(response.data))
     }
 }
 
-export const addScoreTH = (time) => async (dispatch, getState) => {
-    const size = getState().settingsReducer.size
-    let response = await addScore(size, time)
+export const addScoreTH = (timeOfPassing) => async (dispatch, getState) => {
+    const settingsData = getState().settingsReducer
+    let response = await addScore({...settingsData,timeOfPassing})
     if (response) {
-        dispatch(addResultToScore(response.size, response.time, response.utime))
+        dispatch(addResultToScore({...settingsData,timeOfPassing, date:new Date().getTime()}))
     }
 }
 

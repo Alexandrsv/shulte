@@ -9,7 +9,7 @@ import cn from 'classnames'
 import {TableStatus} from "./TableStatus";
 import {TableTimer} from "./TableTimer";
 import {getAlphabet, getNewTable, increaseTime} from "../../utils/utils";
-import {addResultToScore} from "../../redux/score-reducer";
+import {addScoreTH} from "../../redux/score-reducer";
 
 
 const Table = () => {
@@ -35,7 +35,7 @@ const Table = () => {
         if (itemForSearch >= Math.pow(tableSize, 2)) {
             setStatus('win')
             clearInterval(intervalRef.current)
-            dispatch(addResultToScore(tableSize, tableType, isShuffleCells, timeOfPassing, Date.now()))
+            dispatch(addScoreTH(timeOfPassing))
         }
     }, [dispatch, isShuffleCells, itemForSearch, tableSize, tableType, timeOfPassing])
 

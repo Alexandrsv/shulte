@@ -1,4 +1,5 @@
 import {getInit} from "../api/api";
+import {getScoreTH} from "./score-reducer";
 
 const SET_USER_INFO = 'init/SET_USER_INFO'
 
@@ -37,11 +38,15 @@ export const setUserInfo = (user) => ({
 
 export const userInit = (userInfo) => async (dispatch) => {
     let response = await getInit(userInfo)
-    console.log('response', response)
+    await dispatch(getScoreTH(response.data.uid))
     if (response) {
         dispatch(setUserInfo(response.data))
     }
 }
-
+// tableSize
+// tableType
+// isShuffleCells
+// timeOfPassing
+// date
 
 export default initReducer
