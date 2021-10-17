@@ -21,6 +21,7 @@ import Statistics from "./components/statistics/Statistics";
 import bridge from "@vkontakte/vk-bridge";
 import {useDispatch} from "react-redux";
 import {userInit} from "./redux/init-reducer";
+import {logger} from "./logger";
 
 // eslint-disable-next-line no-extend-native
 Array.prototype.getRandom = function () {
@@ -39,7 +40,7 @@ const App = withAdaptivity(({viewWidth}) => {
 
     useEffect(() => {
         bridge.send('VKWebAppGetUserInfo').then(r => {
-            console.log('VKWebAppGetUserInfo', r)
+            logger('VKWebAppGetUserInfo', r)
             dispatch(userInit(r))
         })
     }, [dispatch])

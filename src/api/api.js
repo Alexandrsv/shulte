@@ -7,7 +7,6 @@ export const instance = axios.create({
 
 
 export const getInit = (userInfo) => {
-    // console.log(userInfo)
     const name = userInfo.first_name + ' ' + userInfo.last_name
     const sex = userInfo.sex
     return instance.get(

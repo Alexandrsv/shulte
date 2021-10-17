@@ -1,5 +1,6 @@
 import {getInit} from "../api/api";
 import {getScoreTH} from "./score-reducer";
+import {logger} from "../logger";
 
 const SET_USER_INFO = 'init/SET_USER_INFO'
 
@@ -15,7 +16,7 @@ let initialState = {
 
 
 const initReducer = (state = initialState, action) => {
-    console.log('initReducer', action)
+    logger('initReducer', action)
     switch (action.type) {
         case SET_USER_INFO:
             return {...state, user: {...action.payload}}

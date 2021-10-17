@@ -4,6 +4,7 @@ import settingsReducer from "./settings-reducer";
 import scoreReducer from "./score-reducer";
 import {loadState} from "./localStorage";
 import initReducer from "./init-reducer";
+import {logger} from "../logger";
 
 let rootReducer = combineReducers({
     settingsReducer,
@@ -22,7 +23,7 @@ const store = createStore(rootReducer, persistedState, composeEnhancers(applyMid
 //         ...store.getState()
 //     });
 // }, 1000))
-store.subscribe(() => console.log('STATE', store.getState()))
+store.subscribe(() => logger('STATE', store.getState()))
 
 window.__store__ = store
 export default store

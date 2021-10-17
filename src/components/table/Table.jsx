@@ -10,6 +10,7 @@ import {TableStatus} from "./TableStatus";
 import {TableTimer} from "./TableTimer";
 import {getAlphabet, getNewTable, increaseTime} from "../../utils/utils";
 import {addScoreTH} from "../../redux/score-reducer";
+import {logger} from "../../logger";
 
 
 const Table = () => {
@@ -50,7 +51,7 @@ const Table = () => {
             if (isSound) {
                 const sound = clickSound()
                 sound.volume = 0.2
-                sound.play().catch(e => console.log('Play', e))
+                sound.play().catch(e => logger('Play', e))
             }
             isVibed && bridge.send("VKWebAppTapticImpactOccurred", {"style": "light"})
             isShuffleCells && setNewTable(getNewTable(tableSize, tableType))

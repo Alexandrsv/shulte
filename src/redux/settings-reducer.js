@@ -1,3 +1,5 @@
+import {logger} from "../logger";
+
 const CHANGE_TABLE_SIZE = 'settings/CHANGE_TABLE_SIZE'
 const CHANGE_TABLE_TYPE = 'settings/CHANGE_TABLE_TYPE'
 const CHANGE_SHUFFLE_CELLS = 'settings/CHANGE_SHUFFLE_CELLS'
@@ -14,7 +16,7 @@ let initialState = {
 }
 
 const settingsReducer = (state = initialState, action) => {
-    console.log('settingsReducer', action)
+    logger('settingsReducer', action)
     switch (action.type) {
         case CHANGE_TABLE_SIZE:
             let newSize = action.payload.size
