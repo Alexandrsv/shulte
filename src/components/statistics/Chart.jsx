@@ -39,11 +39,13 @@ export function Chart() {
             <XAxis dataKey="attemptNumber"
                    type={'number'}
                    allowDecimals={false}
+
+
                    >
-                <Label value="Номер попытки" offset={-10} position="bottom"/>
+                <Label value="Номер попытки" offset={-10} position="bottom" dy={5}/>
             </XAxis>
-            <YAxis axisLine={false}>
-                <Label value={'Время в секундах'} position="Left" angle={-90} type={'number'}/>
+            <YAxis axisLine={false} >
+                <Label value={'Время в секундах'} position="Left" angle={-90} type={'number'} dx={-5}/>
             </YAxis>
             <CartesianGrid strokeDasharray="3 3" vertical={false}/>
             <Tooltip
