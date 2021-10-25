@@ -24,7 +24,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "BROWSER='google-chrome-stable' react-scripts start",
+    "start": "BROWSER='google-chrome-stable' PORT=3001 react-scripts start ",
     "tunnel": "vk-tunnel --insecure=1 --http-protocol=http --ws-protocol=ws --host=localhost --port=3001",
     "build": "BROWSER='google-chrome-stable' react-scripts build",
     "test": "BROWSER='google-chrome-stable' react-scripts test",
