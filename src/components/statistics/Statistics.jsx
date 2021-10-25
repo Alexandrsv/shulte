@@ -1,9 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Chart} from "./Chart";
 import {Text} from "@vkontakte/vkui";
 import Settings from "../settings/Settings";
+import {getScoreTH} from "../../redux/score-reducer";
+import {useDispatch} from "react-redux";
 
 const Statistics = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+
+        dispatch(getScoreTH(null))
+    }, [dispatch])
 
     return (
         <div>

@@ -1,4 +1,5 @@
 import {addScore, getScore} from "../api/api";
+import {logger} from "../logger";
 
 const ADD_RESULT_TO_SCORE = 'score/ADD_RESULT_TO_SCORE'
 const SET_SCORE_FROM_SERVER = 'score/SET_SCORE_FROM_SERVER'
@@ -32,8 +33,11 @@ export const setScoreFromServer = (score) => ({
     payload: score
 })
 
-export const getScoreTH = (userId) => async (dispatch) => {
-    let response = await getScore(userId)
+export const getScoreTH = (userId) => async (dispatch, getState) => {
+    const {initUid} = getState().initReducer.user;
+    const uid = initUid ? initUid : userId
+    logger('SSSSTTTT',uid)
+    let response = await getScore(uid)
     if (response) {
         dispatch(setScoreFromServer(response.data))
     }

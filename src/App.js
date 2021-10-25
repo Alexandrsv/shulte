@@ -22,6 +22,7 @@ import bridge from "@vkontakte/vk-bridge";
 import {useDispatch} from "react-redux";
 import {userInit} from "./redux/init-reducer";
 import {logger} from "./logger";
+import {getScoreTH} from "./redux/score-reducer";
 
 // eslint-disable-next-line no-extend-native
 Array.prototype.getRandom = function () {
@@ -42,6 +43,15 @@ const App = withAdaptivity(({viewWidth}) => {
         bridge.send('VKWebAppGetUserInfo').then(r => {
             logger('VKWebAppGetUserInfo', r)
             dispatch(userInit(r))
+        })
+        bridge.subscribe((e)=>{
+            logger('VKWebAppViewRestore')
+            // eslint-disable-next-line default-case
+            switch (e.detail.type) {
+                case 'VKWebAppViewRestore':
+                    dispatch(getScoreTH(null))
+                    break;
+            }
         })
     }, [dispatch])
 
