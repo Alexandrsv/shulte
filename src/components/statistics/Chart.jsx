@@ -2,6 +2,7 @@ import {Area, AreaChart, CartesianGrid, Label, Tooltip, XAxis, YAxis} from 'rech
 import {useSelector} from "react-redux";
 import {Icon28GraphOutline} from "@vkontakte/icons";
 import {Placeholder} from "@vkontakte/vkui";
+import {logger} from "../../logger";
 
 
 // const data = Array(100)
@@ -22,11 +23,13 @@ export function Chart() {
         return v.size === tableSize && v.tableType === tableType && v.isShuffleCells === isShuffleCells
     }))
     const data = score.map((v, i) => ({attemptNumber: +i + 1, 'Затраченное время': +v.timeOfPassing}))
+    logger('SCORE', score)
+
     if (data.length === 0) {
         return <Placeholder icon={<Icon28GraphOutline width={56} height={56}/>}>Нет данных о попытках прохождения
             таблицы с указанными настройками</Placeholder>
     }
-    return <div>
+    return <div key={Math.random()}>
         <AreaChart width={window.innerWidth} height={250} data={data}
                    margin={{top: 10, right: 30, left: -10, bottom: 20}}
         >
@@ -41,10 +44,10 @@ export function Chart() {
                    allowDecimals={false}
 
 
-                   >
+            >
                 <Label value="Номер попытки" offset={-10} position="bottom" dy={5}/>
             </XAxis>
-            <YAxis axisLine={false} >
+            <YAxis axisLine={false}>
                 <Label value={'Время в секундах'} position="Left" angle={-90} type={'number'} dx={-5}/>
             </YAxis>
             <CartesianGrid strokeDasharray="3 3" vertical={false}/>
@@ -59,15 +62,6 @@ export function Chart() {
                 }}
             />
             <Area type="monotone" dataKey='Затраченное время' stroke="#4986CC" fillOpacity={1} fill="url(#colorUv)"/>
-            {/*<Brush*/}
-            {/*    data={data}*/}
-            {/*    dataKey={'attemptNumber'}*/}
-            {/*    travellerWidth={10}*/}
-            {/*    height={40}*/}
-            {/*    // startIndex={data.length>20 && Math.round(data.length * 0.8)}*/}
-            {/*    fill={'#fff'}*/}
-            {/*    stroke={'#4986CC'}*/}
-            {/*/>*/}
         </AreaChart>
     </div>
 }

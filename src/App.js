@@ -44,7 +44,7 @@ const App = withAdaptivity(({viewWidth}) => {
             logger('VKWebAppGetUserInfo', r)
             dispatch(userInit(r))
         })
-        bridge.subscribe((e)=>{
+        bridge.subscribe((e) => {
             logger('VKWebAppViewRestore')
             // eslint-disable-next-line default-case
             switch (e.detail.type) {
@@ -65,7 +65,6 @@ const App = withAdaptivity(({viewWidth}) => {
             >
                 <Epic activeStory={activeStory} tabbar={
                     <Tabbar shadow={false} onClick={() => {
-                        // console.log('State', state)
                     }}>
                         <TabbarItem
                             onClick={onStoryChange}
@@ -99,7 +98,6 @@ const App = withAdaptivity(({viewWidth}) => {
                         <Panel id="statistics">
                             <PanelHeader>Статистика</PanelHeader>
                             <Group style={{}}>
-                                {/*<Placeholder icon={<Icon28GraphOutline width={56} height={56}/>}></Placeholder>*/}
                                 <Statistics/>
                             </Group>
                         </Panel>
