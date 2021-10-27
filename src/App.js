@@ -45,7 +45,7 @@ const App = withAdaptivity(({viewWidth}) => {
             dispatch(userInit(r))
         })
         bridge.subscribe((e) => {
-            logger('VKWebAppViewRestore')
+            logger('bridge.subscribe', e)
             // eslint-disable-next-line default-case
             switch (e.detail.type) {
                 case 'VKWebAppViewRestore':

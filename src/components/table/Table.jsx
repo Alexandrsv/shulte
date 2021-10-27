@@ -47,6 +47,7 @@ const Table = () => {
 
 
     const onItemClick = (item) => {
+        if (status === 'waiting') return
         if (getAlphabet(tableSize, tableType)[itemForSearch] === item) {
             if (isSound) {
                 const sound = clickSound()
