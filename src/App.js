@@ -1,22 +1,23 @@
 import Table from "./components/table/Table";
 import Settings from "./components/settings/Settings";
+
 import {useEffect, useState} from "react";
 import {
     Epic,
     Group,
     Panel,
     PanelHeader,
+    Placeholder,
     SplitCol,
     SplitLayout,
     Tabbar,
     TabbarItem,
     usePlatform,
     View,
-    VKCOM,
-    withAdaptivity
+    VKCOM
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
-import {Icon16GridOfFour, Icon28GearCircleFillGray, Icon28GraphOutline} from "@vkontakte/icons";
+import {Icon16GridOfFour, Icon28AppleOutline, Icon28GearCircleFillGray, Icon28GraphOutline,} from "@vkontakte/icons";
 import Statistics from "./components/statistics/Statistics";
 import bridge from "@vkontakte/vk-bridge";
 import {useDispatch} from "react-redux";
@@ -32,12 +33,14 @@ Array.prototype.getRandom = function () {
     return elem
 }
 
-const App = withAdaptivity(({viewWidth}) => {
+const App = () => {
     const platform = usePlatform();
     const [activeStory, setActiveStory] = useState('table');
+
     const onStoryChange = (e) => setActiveStory(e.currentTarget.dataset.story);
     const hasHeader = platform !== VKCOM;
     const dispatch = useDispatch();
+    logger('platform', platform)
 
     useEffect(() => {
         bridge.send('VKWebAppGetUserInfo').then(r => {
@@ -54,6 +57,16 @@ const App = withAdaptivity(({viewWidth}) => {
             }
         })
     }, [dispatch])
+
+    if (platform === 'ios') {
+        return <Placeholder
+            icon={<Icon28AppleOutline/>}
+            header="Нельзя сотворить здесь"
+        >
+            Устройства на базе IOS в данный момнет не поддерживаются :-( <br/>
+            Со временем это будет исправлено
+        </Placeholder>
+    }
 
     return (
         <SplitLayout
@@ -116,9 +129,7 @@ const App = withAdaptivity(({viewWidth}) => {
             </SplitCol>
         </SplitLayout>
     );
-}, {
-    viewWidth: true
-});
+}
 
 
 export default App;
