@@ -7,7 +7,6 @@ import {
     Group,
     Panel,
     PanelHeader,
-    Placeholder,
     SplitCol,
     SplitLayout,
     Tabbar,
@@ -17,14 +16,14 @@ import {
     VKCOM
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
-import {Icon16GridOfFour, Icon28AppleOutline, Icon28GearCircleFillGray, Icon28GraphOutline,} from "@vkontakte/icons";
+import {Icon16GridOfFour, Icon28GearCircleFillGray, Icon28GraphOutline,} from "@vkontakte/icons";
 import Statistics from "./components/statistics/Statistics";
 import bridge from "@vkontakte/vk-bridge";
 import {useDispatch} from "react-redux";
 import {userInit} from "./redux/init-reducer";
 import {logger} from "./logger";
 import {getScoreTH} from "./redux/score-reducer";
-
+import SupportPlaceholder from "./components/support-placeholder/SupportPlaceholder";
 // eslint-disable-next-line no-extend-native
 Array.prototype.getRandom = function () {
     const idx = Math.floor((Math.random() * this.length))
@@ -43,6 +42,7 @@ const App = () => {
     logger('platform', platform)
 
     useEffect(() => {
+        // eruda.init();
         bridge.send('VKWebAppGetUserInfo').then(r => {
             logger('VKWebAppGetUserInfo', r)
             dispatch(userInit(r))
@@ -59,13 +59,7 @@ const App = () => {
     }, [dispatch])
 
     if (platform === 'ios') {
-        return <Placeholder
-            icon={<Icon28AppleOutline/>}
-            header="Нельзя сотворить здесь"
-        >
-            Устройства на базе IOS в данный момнет не поддерживаются :-( <br/>
-            Со временем это будет исправлено
-        </Placeholder>
+        return <SupportPlaceholder/>
     }
 
     return (
@@ -102,7 +96,7 @@ const App = () => {
                     <View id="table" activePanel="table">
                         <Panel id="table">
                             <PanelHeader>Таблицы Шульте</PanelHeader>
-                            <Group style={{height: ''}}>
+                            <Group>
                                 <Table/>
                             </Group>
                         </Panel>

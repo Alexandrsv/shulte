@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -9,10 +9,8 @@ import {Provider} from "react-redux";
 import store from "./redux/store";
 import {YMInitializer} from 'react-yandex-metrika';
 
-export const UserContext = createContext();
 
 bridge.send("VKWebAppInit", {});
-
 
 const renderDefault = () => {
     ReactDOM.render(
@@ -21,9 +19,9 @@ const renderDefault = () => {
                 <ConfigProvider webviewType='internal'>
                     <AdaptivityProvider>
                         <AppRoot>
-                                <App/>
-                                {/*<Example/>*/}
-                                <YMInitializer accounts={[82216162]} options={{webvisor: true}} version="2"/>
+                            <App/>
+                            {/*<Example/>*/}
+                            <YMInitializer accounts={[82216162]} options={{webvisor: true}} version="2"/>
                         </AppRoot>
                     </AdaptivityProvider>
                 </ConfigProvider>
