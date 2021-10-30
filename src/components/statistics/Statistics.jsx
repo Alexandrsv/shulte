@@ -13,8 +13,9 @@ const Statistics = () => {
         dispatch(getScoreTH(null))
     }, [dispatch])
 
+    // Да, я знаю, что инлайн стили - оч плохое решение
     return (
-        <div>
+        <div style={{height: '81vh'}}>
             <Text level="1" weight={'semibold'} style={{textAlign: "center", padding: '30px'}}>График результатов</Text>
             <Chart/>
             <Settings isScoreSettings={true}/>
