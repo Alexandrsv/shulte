@@ -16,7 +16,12 @@ import {
     VKCOM
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
-import {Icon16GridOfFour, Icon28GearCircleFillGray, Icon28GraphOutline,} from "@vkontakte/icons";
+import {
+    Icon28AllCategoriesOutline,
+    Icon28GearCircleFillGray,
+    Icon28GraphOutline,
+    Icon28SettingsOutline,
+} from "@vkontakte/icons";
 import Statistics from "./components/statistics/Statistics";
 import bridge from "@vkontakte/vk-bridge";
 import {useDispatch} from "react-redux";
@@ -78,7 +83,7 @@ const App = () => {
                             selected={activeStory === 'table'}
                             data-story="table"
                             text="Таблицы Шульте"
-                        ><Icon16GridOfFour width={28} height={28}/></TabbarItem>
+                        ><Icon28AllCategoriesOutline width={28} height={28}/></TabbarItem>
                         <TabbarItem
                             onClick={onStoryChange}
                             selected={activeStory === 'statistics'}
@@ -90,7 +95,7 @@ const App = () => {
                             selected={activeStory === 'settings'}
                             data-story="settings"
                             text="Настройки"
-                        ><Icon28GearCircleFillGray/></TabbarItem>
+                        ><Icon28SettingsOutline/></TabbarItem>
                     </Tabbar>
                 }>
                     <View id="table" activePanel="table">
