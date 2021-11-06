@@ -34,7 +34,7 @@ export function Chart() {
     }
     return <div key={Math.random()}>
         <AreaChart width={window.innerWidth} height={250} data={data}
-                   margin={{top: 10, right: 30, left: -10, bottom: 20}}
+                   margin={{top: 10, right: 30, left: 5, bottom: 20}}
         >
             <defs>
                 <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -51,7 +51,7 @@ export function Chart() {
                 <Label value="Номер попытки" offset={-10} position="bottom" dy={5}/>
             </XAxis>
             <YAxis axisLine={false}>
-                <Label value={'Время в секундах'} position="Left" angle={-90} type={'number'} dx={-5}/>
+                <Label value={'Время в секундах'} position="Left" angle={-90} type={'number'} dx={-15}/>
             </YAxis>
             <CartesianGrid strokeDasharray="3 3" vertical={false}/>
             <Tooltip
