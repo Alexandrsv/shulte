@@ -26,8 +26,11 @@ export function Chart() {
     logger('SCORE', score)
 
     if (data.length === 0) {
-        return <Placeholder icon={<Icon28GraphOutline width={56} height={56}/>}>Нет данных о попытках прохождения
-            таблицы с указанными настройками</Placeholder>
+        return <div style={{height: 250}}>
+            <Placeholder icon={<Icon28GraphOutline width={56} height={56}/>}>Нет данных о
+                попытках прохождения
+                таблицы с указанными настройками</Placeholder>
+        </div>
     }
     return <div key={Math.random()}>
         <AreaChart width={window.innerWidth} height={250} data={data}
