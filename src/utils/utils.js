@@ -14,10 +14,12 @@ export const getAlphabet = (tableSize, tableType) => {
         case 'Английский алфавит':
             return Array(tableSize * tableSize + 6).fill('') //в латинице между большими и малыми идет 6 символов, их выпилит фильтр
                 .map((v, i) => String.fromCharCode(i + 65))
-                .filter((l) => /^[A-Za-z]/.test(l)).slice(0,tableSize*tableSize)
+                .filter((l) => /^[A-Za-z]/.test(l)).slice(0, tableSize * tableSize)
         case 'Рунический алфавит':
-            return Array(tableSize * tableSize).fill('') //в латинице между большими и малыми идет 6 символов, их выпилит фильтр
+            return Array(tableSize * tableSize + 1).fill('')
                 .map((v, i) => String.fromCharCode(i + 5792))
+                .filter((l) => l !== 'ᛂ')
+                .slice(0, tableSize * tableSize)
         default:
             return Array(tableSize * tableSize).fill('').map((v, i) => i + 1)
     }
