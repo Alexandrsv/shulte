@@ -10,7 +10,7 @@ export function TableStatus({status, getAlphabet, tableSize, tableType, itemForS
             ? "Нажмите пуск и найдите символы, начиная с первого"
             : <>
                 <span>Найди&nbsp;</span>
-                <span className={cn({[s.TargetSymbolRed]: getAlphabet(tableSize, tableType)[itemForSearch] < 0})}>
+                <span className={cn(s.TargetSymbol,{[s.TargetSymbolRed]: getAlphabet(tableSize, tableType)[itemForSearch] < 0})}>
                  {Number.isInteger(searchSymbol) ? Math.abs(searchSymbol) : searchSymbol}
                 </span>
             </>}
