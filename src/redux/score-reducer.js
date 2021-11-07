@@ -13,9 +13,13 @@ let initialState = {
 const scoreReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_RESULT_TO_SCORE:
-            return {...state, score: [...state.score, action.payload]}
+            return {
+                ...state, score: [...state.score, action.payload]
+                    .sort((a, b) => (a.createdAt > b.createdAt) ? 1 : ((b.createdAt > a.createdAt) ? -1 : 0))
+            }
         case SET_SCORE_FROM_SERVER:
-            const score = action.payload.map(s=>({...s, date:new Date(s.createdAt).getTime()}))
+            const score = action.payload.map(s => ({...s, date: new Date(s.createdAt).getTime()}))
+                .sort((a, b) => (a.createdAt > b.createdAt) ? 1 : ((b.createdAt > a.createdAt) ? -1 : 0))
             return {...state, score}
         default:
             return state
@@ -36,7 +40,7 @@ export const setScoreFromServer = (score) => ({
 export const getScoreTH = (userId) => async (dispatch, getState) => {
     const {initUid} = getState().initReducer.user;
     const uid = initUid ? initUid : userId
-    logger('SSSSTTTT',uid)
+    logger('SSSSTTTT', uid)
     let response = await getScore(uid)
     if (response) {
         dispatch(setScoreFromServer(response.data))
@@ -45,9 +49,9 @@ export const getScoreTH = (userId) => async (dispatch, getState) => {
 
 export const addScoreTH = (timeOfPassing) => async (dispatch, getState) => {
     const settingsData = getState().settingsReducer
-    let response = await addScore({...settingsData,timeOfPassing})
+    let response = await addScore({...settingsData, timeOfPassing})
     if (response) {
-        dispatch(addResultToScore({...settingsData,timeOfPassing, date:new Date().getTime()}))
+        dispatch(addResultToScore({...settingsData, timeOfPassing, date: new Date().getTime()}))
     }
 }
 
