@@ -82,19 +82,19 @@ const App = () => {
                             selected={activeStory === 'table'}
                             data-story="table"
                             text="Таблицы Шульте"
-                        ><Icon28AllCategoriesOutline width={28} height={28}/></TabbarItem>
+                        ><Icon28AllCategoriesOutline style={{cursor: 'pointer'}}/></TabbarItem>
                         <TabbarItem
                             onClick={onStoryChange}
                             selected={activeStory === 'statistics'}
                             data-story="statistics"
                             text="Статистика"
-                        ><Icon28GraphOutline/></TabbarItem>
+                        ><Icon28GraphOutline style={{cursor: 'pointer'}}/></TabbarItem>
                         <TabbarItem
                             onClick={onStoryChange}
                             selected={activeStory === 'settings'}
                             data-story="settings"
                             text="Настройки"
-                        ><Icon28SettingsOutline/></TabbarItem>
+                        ><Icon28SettingsOutline style={{cursor: 'pointer'}}/></TabbarItem>
                     </Tabbar>
                 }>
                     <View id="table" activePanel="table">
