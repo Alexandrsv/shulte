@@ -4,7 +4,6 @@ import Settings from "./components/settings/Settings";
 import {useEffect, useState} from "react";
 import {
     Epic,
-    Group,
     Panel,
     PanelHeader,
     SplitCol,
@@ -70,7 +69,7 @@ const App = () => {
     return (
         <SplitLayout
             header={hasHeader && <PanelHeader separator={false}/>}
-            style={{justifyContent: "center"}}
+            style={{justifyContent: "center", backgroundColor: 'white'}}
         >
             <SplitCol
                 animate={true}
@@ -101,27 +100,21 @@ const App = () => {
                     <View id="table" activePanel="table">
                         <Panel id="table">
                             <PanelHeader>Таблицы Шульте</PanelHeader>
-                            <Group>
-                                <Table/>
-                            </Group>
+                            <Table/>
                         </Panel>
                     </View>
                     <View id="statistics" activePanel="statistics">
                         <Panel id="statistics">
                             <PanelHeader>Статистика</PanelHeader>
-                            <Group style={{}}>
-                                <Statistics/>
-                            </Group>
+                            <Statistics/>
                         </Panel>
                     </View>
                     <View id="settings" activePanel="settings">
                         <Panel id="settings">
                             <PanelHeader>Настройки</PanelHeader>
-                            <Group style={{}}>
-                                <Icon28GearCircleFillGray style={{margin: "auto", paddingTop: '25px'}} width={56}
-                                                          height={56}/>
-                                <Settings/>
-                            </Group>
+                            <Icon28GearCircleFillGray style={{margin: "auto", paddingTop: '25px'}} width={56}
+                                                      height={56}/>
+                            <Settings/>
                         </Panel>
                     </View>
                 </Epic>
