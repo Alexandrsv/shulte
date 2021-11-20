@@ -4,17 +4,6 @@ import {Icon28GraphOutline} from "@vkontakte/icons";
 import {Placeholder} from "@vkontakte/vkui";
 import {logger} from "../../logger";
 
-
-// const data = Array(100)
-//     .fill('')
-//     .map((v, i) => ({
-//         "name": `  Page ${i}  `,
-//         "x": (Math.random() * 100).toFixed(),
-//         "y": 5 + Math.random() * 20,
-//         "z": Math.random() * 2000,
-//     }))
-
-
 export function Chart() {
     const tableSize = useSelector(s => s.settingsReducer.size)
     const tableType = useSelector(s => s.settingsReducer.tableType)

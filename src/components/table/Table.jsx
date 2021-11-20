@@ -11,6 +11,7 @@ import {TableTimer} from "./TableTimer";
 import {getAlphabet, getNewTable, increaseTime} from "../../utils/utils";
 import {addScoreTH} from "../../redux/score-reducer";
 import {logger} from "../../logger";
+import {updateOpenDate} from "../../redux/init-reducer";
 
 
 const Table = () => {
@@ -35,14 +36,16 @@ const Table = () => {
 
     useEffect(() => { //Обработка победы, остановка таймера
         if (itemForSearch >= Math.pow(tableSize, 2)) {
-            if (new Date().getTime() - openDate.getTime()) {
+            if ((new Date().getTime() - openDate.getTime()) > 30000) {
                 if (Math.random() < .3) {
                     logger('social', 'добавить в закладки')
                     bridge.send("VKWebAppAddToFavorites");
                 } else {
+                    dispatch(updateOpenDate())
                     logger('social', 'добавить в группу')
                     bridge.send("VKWebAppJoinGroup", {"group_id": 205577365});
                 }
+                dispatch(updateOpenDate())
             }
             setStatus('win')
             clearInterval(intervalRef.current)
