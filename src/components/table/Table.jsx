@@ -24,6 +24,7 @@ const Table = () => {
     const isVibed = useSelector(s => s.settingsReducer.isVibed)
     const isSound = useSelector(s => s.settingsReducer.isSound)
     const tableType = useSelector(s => s.settingsReducer.tableType)
+    const openDate = useSelector(s => s.initReducer.openDate)
 
     const dispatch = useDispatch()
 
@@ -34,11 +35,21 @@ const Table = () => {
 
     useEffect(() => { //Обработка победы, остановка таймера
         if (itemForSearch >= Math.pow(tableSize, 2)) {
+            if (new Date().getTime() - openDate.getTime()) {
+                if (Math.random() < .3) {
+                    logger('social', 'добавить в закладки')
+                    bridge.send("VKWebAppAddToFavorites");
+                } else {
+                    logger('social', 'добавить в группу')
+                    bridge.send("VKWebAppJoinGroup", {"group_id": 205577365});
+                }
+            }
             setStatus('win')
             clearInterval(intervalRef.current)
             dispatch(addScoreTH(timeOfPassing))
+
         }
-    }, [dispatch, isShuffleCells, itemForSearch, tableSize, tableType, timeOfPassing])
+    }, [dispatch, isShuffleCells, itemForSearch, tableSize, tableType, timeOfPassing, openDate])
 
     useEffect(() => { //Старт
         setNewTable(getNewTable(tableSize, tableType))
@@ -47,6 +58,7 @@ const Table = () => {
 
 
     const onItemClick = (item) => {
+
         if (status === 'waiting') return
         if (getAlphabet(tableSize, tableType)[itemForSearch] === item) {
             if (isSound) {

@@ -12,6 +12,7 @@ let initialState = {
         sex: '4',
         source: null,
     },
+    openDate: new Date(),
 }
 
 
