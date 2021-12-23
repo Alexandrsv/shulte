@@ -37,9 +37,9 @@ const Table = () => {
     useEffect(() => { //Обработка победы, остановка таймера
         if (itemForSearch >= Math.pow(tableSize, 2)) {
             if ((new Date().getTime() - openDate.getTime()) > 30000) {
-                if (Math.random() < .3) {
-                    logger('social', 'добавить в закладки')
-                    bridge.send("VKWebAppAddToFavorites");
+                if (Math.random() < .7) {
+                    logger('social', 'подписать на рассылку')
+                    bridge.send("VKWebAppAllowMessagesFromGroup", {"group_id": 205577365, "key": "shulte_app"});
                 } else {
                     dispatch(updateOpenDate())
                     logger('social', 'добавить в группу')
