@@ -25,12 +25,13 @@
   },
   "scripts": {
     "start": "BROWSER='google-chrome-stable' PORT=3001 react-scripts start ",
-    "tunnel": "vk-tunnel --insecure=1 --http-protocol=http --ws-protocol=ws --host=localhost --port=3001",
+    "start:https": "sudo NODE_ENV=development PORT=443 HTTPS=true react-scripts start",
+    "tunnel": "vk-tunnel --insecure=1 --http-protocol=https --ws-protocol=wss --host=0.0.0.0 --port=443",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "BROWSER='google-chrome-stable' react-scripts test",
     "eject": "BROWSER='google-chrome-stable' react-scripts eject",
     "gh-deploy": "GENERATE_SOURCEMAP=false react-scripts build && gh-pages -d ./build",
-    "deploy": "GENERATE_SOURCEMAP=false react-scripts build && vk-miniapps-deploy"
+    "deploy": "NODE_ENV=production; GENERATE_SOURCEMAP=false; react-scripts build && vk-miniapps-deploy && rm -rf ./build"
   },
   "eslintConfig": {
     "extends": [
