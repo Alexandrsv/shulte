@@ -12,12 +12,10 @@ import {
   TabbarItem,
   usePlatform,
   View,
-  VKCOM,
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 import {
   Icon28AllCategoriesOutline,
-  Icon28GearCircleFillGray,
   Icon28GraphOutline,
   Icon28SettingsOutline,
 } from "@vkontakte/icons";
@@ -43,7 +41,7 @@ const App = () => {
   useAds();
 
   const onStoryChange = (e) => setActiveStory(e.currentTarget.dataset.story);
-  const hasHeader = platform !== VKCOM;
+  const hasHeader = false;
   const dispatch = useDispatch();
   logger("platform", platform);
 
@@ -120,11 +118,6 @@ const App = () => {
           <View id="settings" activePanel="settings">
             <Panel id="settings">
               <PanelHeader>Настройки</PanelHeader>
-              <Icon28GearCircleFillGray
-                style={{ margin: "auto", paddingTop: "25px" }}
-                width={56}
-                height={56}
-              />
               <Settings />
             </Panel>
           </View>

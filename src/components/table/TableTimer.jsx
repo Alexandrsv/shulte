@@ -1,4 +1,4 @@
-import { Icon16ClockOurline } from "@vkontakte/icons";
+import { Icon16ClockOutline } from "@vkontakte/icons";
 import React from "react";
 
 export function TableTimer({ status, time }) {
@@ -10,7 +10,7 @@ export function TableTimer({ status, time }) {
           visibility: status !== "waiting" ? "visible" : "hidden",
         }}
       >
-        <Icon16ClockOurline
+        <Icon16ClockOutline
           style={window.innerHeight < 603 && { display: "none" }}
         />
       </span>
