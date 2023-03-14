@@ -8,7 +8,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@vkontakte/icons": "^1.132.0",
-    "@vkontakte/vk-bridge": "^2.5.0",
+    "@vkontakte/vk-bridge": "^2.7.2",
     "@vkontakte/vkui": "^4.20.0",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
