@@ -28,6 +28,7 @@ import { userInit } from "./redux/init-reducer";
 import { logger } from "./logger";
 import { getScoreTH } from "./redux/score-reducer";
 import SupportPlaceholder from "./components/support-placeholder/SupportPlaceholder";
+import { useAds } from "./hooks/useAds";
 // eslint-disable-next-line no-extend-native
 Array.prototype.getRandom = function () {
   const idx = Math.floor(Math.random() * this.length);
@@ -39,6 +40,7 @@ Array.prototype.getRandom = function () {
 const App = () => {
   const platform = usePlatform();
   const [activeStory, setActiveStory] = useState("table");
+  useAds();
 
   const onStoryChange = (e) => setActiveStory(e.currentTarget.dataset.story);
   const hasHeader = platform !== VKCOM;
